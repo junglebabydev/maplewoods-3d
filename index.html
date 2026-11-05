@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maplewoods Type D1 in 3D</title>
+<meta name="description" content="Interactive 3D model of a Maplewoods, Chempaka Court Type D1 unit, built with Pascal Editor.">
+<style>
+  :root {
+    --bg: #ecebe7; --panel: rgba(255,255,255,0.92); --ink: #1f1d1a; --muted: #6b665e;
+    --line: rgba(0,0,0,0.08); --accent: #2f5d50; --accent-ink: #ffffff; --chip: #f4f3ef;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
+    font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; overflow: hidden; }
+  #app { position: fixed; inset: 0; }
+  canvas { display: block; touch-action: none; }
+  .card { position: fixed; left: 16px; top: 16px; max-width: 320px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 14px 16px; backdrop-filter: blur(8px); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+  .card h1 { font-size: 16px; margin: 0 0 2px; letter-spacing: -0.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: 12.5px; }
+  .card details { margin-top: 10px; }
+  .card summary { cursor: pointer; font-size: 12.5px; color: var(--accent); font-weight: 600; list-style: none; }
+  .card summary::-webkit-details-marker { display: none; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12.5px; }
+  td { padding: 3px 0; border-bottom: 1px solid var(--line); }
+  td:last-child { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+  .note { margin-top: 8px !important; font-size: 11.5px !important; }
+  .bar { position: fixed; left: 50%; transform: translateX(-50%); bottom: max(16px, env(safe-area-inset-bottom));
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 6px; max-width: calc(100vw - 32px); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+  .bar button { appearance: none; border: 0; background: var(--chip); color: var(--ink); padding: 8px 12px; border-radius: 10px;
+    font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
+  .bar button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .bar .sep { width: 1px; background: var(--line); margin: 4px 2px; }
+  .label { position: fixed; left: 0; top: 0; pointer-events: none; transform: translate(-50%, -50%); background: rgba(255,255,255,0.88);
+    border: 1px solid var(--line); border-radius: 999px; padding: 3px 9px; font-size: 11.5px; font-weight: 600; white-space: nowrap; color: var(--ink); }
+  .label span { font-weight: 400; color: var(--muted); margin-left: 4px; }
+  .hidden { display: none !important; }
+  #loading { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
+  .hint { position: fixed; right: 16px; top: 16px; font-size: 11.5px; color: var(--muted); background: var(--panel); border: 1px solid var(--line);
+    border-radius: 10px; padding: 6px 10px; }
+  @media (max-width: 640px) {
+    .card { right: 16px; max-width: none; padding: 12px 14px; }
+    .bar { left: 16px; right: 16px; transform: none; max-width: none; }
+    .hint { display: none; }
+    .bar button { padding: 8px 10px; font-size: 12.5px; }
+  }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="loading">Loading model… <span id="pct"></span></div>
+<div id="labels"></div>
+
+<div class="card">
+  <h1>Maplewoods, Chempaka Court · Type D1</h1>
+  <p>3 bed + study · traced to scale from the developer plan</p>
+  <details>
+    <summary>Room areas</summary>
+    <table>
+      <tr><td>Living / Dining</td><td>50.96 m²</td></tr>
+      <tr><td>Master Bedroom</td><td>18.91 m²</td></tr>
+      <tr><td>Kitchen</td><td>11.46 m²</td></tr>
+      <tr><td>Study</td><td>11.35 m²</td></tr>
+      <tr><td>Bedroom 2</td><td>11.27 m²</td></tr>
+      <tr><td>Bedroom 3</td><td>10.00 m²</td></tr>
+      <tr><td>Balcony</td><td>5.78 m²</td></tr>
+    </table>
+    <p class="note">Areas from the developer brochure. Ceiling height (2.8 m), door and window sizes are estimates. Finishes follow a walkthrough video. Built with <a href="https://github.com/pascalorg/editor" target="_blank" rel="noopener">Pascal Editor</a>.</p>
+  </details>
+</div>
+<div class="hint">Drag to rotate · scroll or pinch to zoom · right-drag to pan</div>
+
+<div class="bar" role="toolbar" aria-label="Views">
+  <button data-view="overview" aria-pressed="true">Overview</button>
+  <button data-view="top">Top</button>
+  <button data-view="living">Living</button>
+  <button data-view="kitchen">Kitchen</button>
+  <button data-view="master">Master</button>
+  <span class="sep"></span>
+  <button id="cut" aria-pressed="true">Cut walls</button>
+  <button id="labelsBtn" aria-pressed="true">Labels</button>
+</div>
+
+<script type="module">
+import * as THREE from 'three'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
+
+const app = document.getElementById('app')
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true })
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.outputColorSpace = THREE.SRGBColorSpace
+renderer.toneMapping = THREE.ACESFilmicToneMapping
+renderer.toneMappingExposure = 1.05
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+app.appendChild(renderer.domElement)
+
+const scene = new THREE.Scene()
+const pmrem = new THREE.PMREMGenerator(renderer)
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+scene.environmentIntensity = 0.55
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.05, 200)
+const controls = new OrbitControls(camera, renderer.domElement)
+controls.enableDamping = true
+controls.maxPolarAngle = Math.PI * 0.495
+
+scene.add(new THREE.HemisphereLight('#ffffff', '#b9a58f', 1.1))
+const sun = new THREE.DirectionalLight('#fff4e5', 2.0)
+sun.position.set(-10, 16, 9)
+sun.castShadow = true
+sun.shadow.mapSize.set(2048, 2048)
+sun.shadow.camera.left = -11; sun.shadow.camera.right = 11; sun.shadow.camera.top = 11; sun.shadow.camera.bottom = -11
+sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02
+scene.add(sun)
+
+const ground = new THREE.Mesh(new THREE.CircleGeometry(40, 64), new THREE.MeshStandardMaterial({ color: '#e4e2dc', roughness: 1 }))
+ground.rotation.x = -Math.PI / 2; ground.position.y = -0.2; ground.receiveShadow = true
+scene.add(ground)
+
+// Cut-away: hide everything above 1.3 m so the rooms read from above
+const cutPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1.3)
+let cut = true
+const applyCut = () => { renderer.clippingPlanes = cut ? [cutPlane] : []; document.getElementById('cut').setAttribute('aria-pressed', String(cut)) }
+applyCut()
+
+// Plan coordinates come from the brochure trace (px); world = plan metres minus the building offset
+const S = 0.0205, OFF = [-7.51, -5.74]
+const W = (px, py) => new THREE.Vector3((px - 241) * S + OFF[0], 0, (py - 566) * S + OFF[1])
+const rooms = [
+  ['Living / Dining', 460, 880, '50.96 m²'], ['Kitchen', 320, 770, '11.46 m²'], ['Master Bedroom', 860, 920, '18.91 m²'],
+  ['Bedroom 2', 770, 670, '11.27 m²'], ['Bedroom 3', 905, 740, '10.00 m²'], ['Study', 650, 1045, '11.35 m²'],
+  ['Master Bath', 690, 870, ''], ['Bath 2', 650, 690, ''], ['Powder', 565, 615, ''], ['Balcony', 460, 1163, '5.78 m²'],
+  ['Utility', 270, 893, ''], ['Yard', 330, 1000, ''], ['WC', 265, 985, ''], ['Foyer', 300, 610, ''],
+]
+const labelsEl = document.getElementById('labels')
+const labels = rooms.map(([name, x, y, area]) => {
+  const el = document.createElement('div'); el.className = 'label'
+  el.innerHTML = area ? `${name}<span>${area}</span>` : name
+  labelsEl.appendChild(el)
+  const p = W(x, y); p.y = 0.4
+  return { el, p }
+})
+let showLabels = true
+
+const views = {
+  overview: { pos: [-9.5, 13, 13], target: [0, 0, 0.4], cut: true },
+  top: { pos: [0, 21, 0.35], target: [0, 0, 0.3], cut: true },
+  living: { pos: W(470, 1095).setY(1.6).toArray(), target: W(470, 650).setY(1.25).toArray(), cut: false },
+  kitchen: { pos: W(335, 690).setY(1.6).toArray(), target: W(285, 840).setY(0.9).toArray(), cut: false },
+  master: { pos: W(790, 1005).setY(1.6).toArray(), target: W(965, 850).setY(1.2).toArray(), cut: false },
+}
+let tween = null
+function goto(name, instant = false) {
+  const v = views[name]
+  cut = v.cut; applyCut()
+  document.querySelectorAll('[data-view]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name)))
+  const fromP = camera.position.clone(), fromT = controls.target.clone()
+  const toT = new THREE.Vector3(...v.target), toP = new THREE.Vector3(...v.pos)
+  // Portrait screens need the outside views pulled back to fit the whole unit
+  if (v.cut && camera.aspect < 1) toP.sub(toT).multiplyScalar(Math.min(1.7, 0.95 / camera.aspect)).add(toT)
+  if (instant) { camera.position.copy(toP); controls.target.copy(toT); controls.update(); return }
+  tween = { fromP, fromT, toP, toT, t0: performance.now(), d: 900 }
+}
+document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => goto(b.dataset.view)))
+document.getElementById('cut').addEventListener('click', () => { cut = !cut; applyCut() })
+document.getElementById('labelsBtn').addEventListener('click', (e) => {
+  showLabels = !showLabels; e.currentTarget.setAttribute('aria-pressed', String(showLabels)); labelsEl.classList.toggle('hidden', !showLabels)
+})
+controls.addEventListener('start', () => { tween = null })
+
+new GLTFLoader().load('./model.glb', (gltf) => {
+  const model = gltf.scene
+  model.traverse((o) => {
+    if (!o.isMesh) return
+    o.castShadow = true; o.receiveShadow = true
+    const mats = Array.isArray(o.material) ? o.material : [o.material]
+    mats.forEach((m) => { if (m.transparent && m.opacity < 1) { m.depthWrite = false; o.castShadow = false } })
+  })
+  scene.add(model)
+  document.getElementById('loading').remove()
+  goto('overview', true)
+}, (e) => { if (e.total) document.getElementById('pct').textContent = Math.round((e.loaded / e.total) * 100) + '%' },
+(err) => { document.getElementById('loading').textContent = 'Could not load the model.'; console.error(err) })
+
+const v = new THREE.Vector3()
+// Draw only when something changed: keeps phones cool and idle tabs cheap
+let dirty = true
+const invalidate = () => { dirty = true }
+controls.addEventListener('change', invalidate)
+document.querySelectorAll('.bar button').forEach((b) => b.addEventListener('click', invalidate))
+function render(now) {
+  requestAnimationFrame(render)
+  if (tween) {
+    const k = Math.min(1, (now - tween.t0) / tween.d), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2
+    camera.position.lerpVectors(tween.fromP, tween.toP, e); controls.target.lerpVectors(tween.fromT, tween.toT, e)
+    if (k >= 1) tween = null
+    dirty = true
+  }
+  if (controls.update()) dirty = true
+  if (!dirty) return
+  dirty = false
+  renderer.render(scene, camera)
+  if (showLabels) {
+    const w = window.innerWidth, h = window.innerHeight
+    for (const l of labels) {
+      v.copy(l.p).project(camera)
+      const visible = v.z < 1 && Math.abs(v.x) < 1.1 && Math.abs(v.y) < 1.1 && camera.position.distanceTo(l.p) > 2.2
+      l.el.style.display = visible ? '' : 'none'
+      if (visible) l.el.style.transform = `translate(${(v.x * 0.5 + 0.5) * w}px, ${(-v.y * 0.5 + 0.5) * h}px) translate(-50%, -50%)`
+    }
+  }
+}
+requestAnimationFrame(render)
+addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); invalidate()
+})
+</script>
+</body>
+</html>

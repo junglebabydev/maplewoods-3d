@@ -38,12 +38,18 @@
   .label span { font-weight: 400; color: var(--muted); margin-left: 4px; }
   .hidden { display: none !important; }
   #loading { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
-  .hint { position: fixed; right: 16px; top: 16px; font-size: 11.5px; color: var(--muted); background: var(--panel); border: 1px solid var(--line);
+  .furn-toggle { position: fixed; right: 16px; top: 16px; z-index: 5; display: flex; align-items: center; gap: 8px; padding: 11px 18px;
+    border: 1px solid transparent; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    background: var(--accent); color: var(--accent-ink); box-shadow: 0 6px 20px rgba(0,0,0,0.16); }
+  .furn-toggle[aria-pressed="false"] { background: #ffffff; color: var(--ink); border-color: var(--line); }
+  .furn-toggle svg { width: 20px; height: 20px; flex: none; }
+  .hint { position: fixed; right: 16px; top: 72px; font-size: 11.5px; color: var(--muted); background: var(--panel); border: 1px solid var(--line);
     border-radius: 10px; padding: 6px 10px; }
   @media (max-width: 640px) {
     .card { right: 16px; max-width: none; padding: 12px 14px; }
     .bar { left: 16px; right: 16px; transform: none; max-width: none; }
     .hint { display: none; }
+    .furn-toggle { top: auto; bottom: 120px; padding: 10px 16px; }
     .bar button { padding: 8px 10px; font-size: 12.5px; }
   }
 </style>
@@ -58,7 +64,7 @@
 
 <div class="card">
   <h1>Maplewoods, Chempaka Court · Type D1</h1>
-  <p>3 bed + study · traced to scale from the developer plan · tap Furniture to compare with the empty unit</p>
+  <p>3 bed + study · traced to scale from the developer plan · use the furniture button to compare with the empty unit</p>
   <details>
     <summary>Room areas</summary>
     <table>
@@ -73,6 +79,10 @@
     <p class="note">Areas from the developer brochure. Ceiling height (2.8 m), door and window sizes are estimates. Finishes follow a walkthrough video. Built with <a href="https://github.com/pascalorg/editor" target="_blank" rel="noopener">Pascal Editor</a>.</p>
   </details>
 </div>
+<button id="furnBtn" class="furn-toggle" aria-pressed="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4H2z"/><path d="M5 17v2M19 17v2"/></svg>
+  <span id="furnLabel">Hide furniture</span>
+</button>
 <div class="hint">Drag to rotate · scroll or pinch to zoom · right-drag to pan</div>
 
 <div class="bar" role="toolbar" aria-label="Views">
@@ -82,7 +92,6 @@
   <button data-view="kitchen">Kitchen</button>
   <button data-view="master">Master</button>
   <span class="sep"></span>
-  <button id="furnBtn" aria-pressed="true">Furniture</button>
   <button id="cut" aria-pressed="true">Cut walls</button>
   <button id="labelsBtn" aria-pressed="true">Labels</button>
 </div>
@@ -183,12 +192,22 @@ controls.addEventListener('start', () => { tween = null })
 let furniture = null
 let showFurniture = new URLSearchParams(location.search).get('furniture') !== '0'
 const furnBtn = document.getElementById('furnBtn')
-furnBtn.setAttribute('aria-pressed', String(showFurniture))
+const syncFurnBtn = () => {
+  furnBtn.setAttribute('aria-pressed', String(showFurniture))
+  document.getElementById('furnLabel').textContent = showFurniture ? 'Hide furniture' : 'Show furniture'
+}
+syncFurnBtn()
 furnBtn.addEventListener('click', () => {
   showFurniture = !showFurniture
-  furnBtn.setAttribute('aria-pressed', String(showFurniture))
+  syncFurnBtn()
   if (furniture) furniture.visible = showFurniture
+  invalidate()
 })
+// On phones the button sits just above the toolbar, whose height depends on how its buttons wrap
+const bar = document.querySelector('.bar')
+const placeFurnBtn = () => { furnBtn.style.bottom = matchMedia('(max-width: 640px)').matches ? `${bar.offsetHeight + 28}px` : '' }
+placeFurnBtn()
+addEventListener('resize', placeFurnBtn)
 
 new GLTFLoader().load('./model.glb', (gltf) => {
   const model = gltf.scene

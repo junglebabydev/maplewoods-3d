@@ -4,7 +4,7 @@ An interactive 3D model of a Type D1 unit at Maplewoods, Chempaka Court, Singapo
 
 **Live viewer:** https://junglebabydev.github.io/maplewoods-3d/
 
-![Overview](renders/01-overview.png)
+![Furnished](renders/04-furnished-overview.png)
 
 ## What's in it
 
@@ -12,10 +12,26 @@ An interactive 3D model of a Type D1 unit at Maplewoods, Chempaka Court, Singapo
 2. Finishes from a walkthrough video: polished marble in the living, dining and study; teak basketweave parquet in the bedrooms; a white-tiled kitchen; red marble vanities.
 3. Fixed fittings only: kitchen cabinets, fridge, washer and dryer, bathroom fittings, master wardrobe, living-room fan. No loose furniture.
 
+## Furniture layout
+
+Tap **Furniture** in the viewer to switch between the furnished and the empty unit. Add `?furniture=0` to the link to open it empty.
+
+| Room | Pieces | Size used |
+| --- | --- | --- |
+| Living | 3-seater sofa, ottoman, rug, acacia TV console (HipVan), 65" TV, wall ladder, play kitchen | Sofa 240 x 95 cm; console about 200 x 45 cm (estimate) |
+| Dining | IKEA EKEDALEN extendable table, 5 chairs, Tripp Trapp high chair, Castlery Seb sideboard with canvas | Table 180 (240 extended) x 90 x 75 cm; sideboard 160 x 45 x 78 cm |
+| Master bedroom | IKEA king upholstered storage bed, 2 nightstands | About 197 x 224 cm (estimate, 180x200 mattress) |
+| Bedroom 2 (nursery) | Oval crib with canopy, kids' wardrobe, book display, play mat, glider and ottoman | Estimated from photos |
+| Bedroom 3 | IKEA MALM queen, nightstand with lamp, TV on stand | MALM 176 x 209 cm, 100 cm headboard |
+| Study | White desk with monitor, printer cart, mesh office chair, side chair, filing cabinet, whiteboard | Estimated from photos |
+
+Pieces are modelled as clean shapes from photos, without bedding clutter or personal items. Where a size could not be found it is estimated, so allow about 10 cm either way. The furniture lives in `furniture.js`, separate from the Pascal model.
+
 ## Viewer controls
 
 - Drag to rotate, scroll or pinch to zoom, right-drag to pan.
 - Preset views: Overview, Top, Living, Kitchen, Master.
+- **Furniture** shows or hides your furniture.
 - **Cut walls** slices everything above 1.3 m so you can see into the rooms.
 
 ## Estimates
@@ -33,6 +49,6 @@ An interactive 3D model of a Type D1 unit at Maplewoods, Chempaka Court, Singapo
 
 | Folder | Contents |
 | --- | --- |
-| `index.html`, `model.glb`, `vendor/` | The web viewer |
+| `index.html`, `model.glb`, `furniture.js`, `vendor/` | The web viewer and the furniture layer |
 | `renders/` | Still renders and Pascal's 2D plan |
 | `source/` | Pascal scene file and the generator script |

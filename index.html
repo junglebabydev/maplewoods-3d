@@ -58,7 +58,7 @@
 
 <div class="card">
   <h1>Maplewoods, Chempaka Court · Type D1</h1>
-  <p>3 bed + study · traced to scale from the developer plan</p>
+  <p>3 bed + study · traced to scale from the developer plan · tap Furniture to compare with the empty unit</p>
   <details>
     <summary>Room areas</summary>
     <table>
@@ -82,6 +82,7 @@
   <button data-view="kitchen">Kitchen</button>
   <button data-view="master">Master</button>
   <span class="sep"></span>
+  <button id="furnBtn" aria-pressed="true">Furniture</button>
   <button id="cut" aria-pressed="true">Cut walls</button>
   <button id="labelsBtn" aria-pressed="true">Labels</button>
 </div>
@@ -91,6 +92,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
+import { buildFurniture } from './furniture.js'
 
 const app = document.getElementById('app')
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true })
@@ -177,6 +179,17 @@ document.getElementById('labelsBtn').addEventListener('click', (e) => {
 })
 controls.addEventListener('start', () => { tween = null })
 
+// Furniture layer: on by default, ?furniture=0 starts with the empty unit
+let furniture = null
+let showFurniture = new URLSearchParams(location.search).get('furniture') !== '0'
+const furnBtn = document.getElementById('furnBtn')
+furnBtn.setAttribute('aria-pressed', String(showFurniture))
+furnBtn.addEventListener('click', () => {
+  showFurniture = !showFurniture
+  furnBtn.setAttribute('aria-pressed', String(showFurniture))
+  if (furniture) furniture.visible = showFurniture
+})
+
 new GLTFLoader().load('./model.glb', (gltf) => {
   const model = gltf.scene
   model.traverse((o) => {
@@ -186,8 +199,16 @@ new GLTFLoader().load('./model.glb', (gltf) => {
     mats.forEach((m) => { if (m.transparent && m.opacity < 1) { m.depthWrite = false; o.castShadow = false } })
   })
   scene.add(model)
+  // Stand the furniture on the real floor finish: probe the living-room floor height
+  model.updateMatrixWorld(true)
+  const probe = new THREE.Raycaster(W(470, 960).setY(5), new THREE.Vector3(0, -1, 0))
+  const hit = probe.intersectObject(model, true).find((h) => h.point.y < 0.3)
+  furniture = buildFurniture(hit ? hit.point.y + 0.002 : 0.01)
+  furniture.visible = showFurniture
+  scene.add(furniture)
   document.getElementById('loading').remove()
   goto('overview', true)
+  invalidate()
 }, (e) => { if (e.total) document.getElementById('pct').textContent = Math.round((e.loaded / e.total) * 100) + '%' },
 (err) => { document.getElementById('loading').textContent = 'Could not load the model.'; console.error(err) })
 
@@ -220,6 +241,7 @@ function render(now) {
   }
 }
 requestAnimationFrame(render)
+window.viewer = { camera, controls, invalidate, W }
 addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); invalidate()
 })

@@ -4,68 +4,85 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Maplewoods Type D1 in 3D</title>
-<meta name="description" content="Interactive 3D model of a Maplewoods, Chempaka Court Type D1 unit, built with Pascal Editor.">
+<meta name="description" content="Interactive 3D model and floor plan of a Maplewoods, Chempaka Court Type D1 unit, with the family's furniture.">
 <style>
   :root {
-    --bg: #ecebe7; --panel: rgba(255,255,255,0.92); --ink: #1f1d1a; --muted: #6b665e;
-    --line: rgba(0,0,0,0.08); --accent: #2f5d50; --accent-ink: #ffffff; --chip: #f4f3ef;
+    --bg: #ecebe7; --panel: #ffffff; --ink: #1f1d1a; --muted: #5d5850; --line: #d6d1c7;
+    --accent: #234c41; --accent-ink: #ffffff; --focus: #f2b84b;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
-    font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; overflow: hidden; }
+    font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; overflow: hidden; }
   #app { position: fixed; inset: 0; }
   canvas { display: block; touch-action: none; }
-  .card { position: fixed; left: 16px; top: 16px; max-width: 320px; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 14px; padding: 14px 16px; backdrop-filter: blur(8px); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
-  .card h1 { font-size: 16px; margin: 0 0 2px; letter-spacing: -0.01em; }
-  .card p { margin: 0; color: var(--muted); font-size: 12.5px; }
-  .card details { margin-top: 10px; }
-  .card summary { cursor: pointer; font-size: 12.5px; color: var(--accent); font-weight: 600; list-style: none; }
-  .card summary::-webkit-details-marker { display: none; }
-  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12.5px; }
-  td { padding: 3px 0; border-bottom: 1px solid var(--line); }
-  td:last-child { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
-  .note { margin-top: 8px !important; font-size: 11.5px !important; }
-  .bar { position: fixed; left: 50%; transform: translateX(-50%); bottom: max(16px, env(safe-area-inset-bottom));
-    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 14px; padding: 6px; max-width: calc(100vw - 32px); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
-  .bar button { appearance: none; border: 0; background: var(--chip); color: var(--ink); padding: 8px 12px; border-radius: 10px;
-    font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
-  .bar button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
-  .bar button:disabled { opacity: 0.4; cursor: default; }
-  .bar .sep { width: 1px; background: var(--line); margin: 4px 2px; }
-  .label { position: fixed; left: 0; top: 0; pointer-events: none; transform: translate(-50%, -50%); background: rgba(255,255,255,0.88);
-    border: 1px solid var(--line); border-radius: 999px; padding: 3px 9px; font-size: 11.5px; font-weight: 600; white-space: nowrap; color: var(--ink); }
-  .label span { font-weight: 400; color: var(--muted); margin-left: 4px; }
   .hidden { display: none !important; }
-  #loading { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
-  .furn-toggle { position: fixed; right: 16px; top: 16px; z-index: 5; display: flex; align-items: center; gap: 8px; padding: 11px 18px;
-    border: 1px solid transparent; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
-    background: var(--accent); color: var(--accent-ink); box-shadow: 0 6px 20px rgba(0,0,0,0.16); }
-  .furn-toggle[aria-pressed="false"] { background: #ffffff; color: var(--ink); border-color: var(--line); }
-  .furn-toggle svg { width: 20px; height: 20px; flex: none; }
-  .hint { position: fixed; right: 16px; top: 72px; font-size: 11.5px; color: var(--muted); background: var(--panel); border: 1px solid var(--line);
-    border-radius: 10px; padding: 6px 10px; }
+  button { font: inherit; color: inherit; }
+  button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  /* Title card */
+  .card { position: fixed; z-index: 3; left: 16px; top: 16px; max-width: 330px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 16px; padding: 14px 16px; box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+  .card h1 { font-size: 18px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .card details { margin-top: 10px; }
+  .card summary { cursor: pointer; font-size: 15px; color: var(--accent); font-weight: 650; padding: 4px 0; }
+  table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 15px; }
+  td { padding: 4px 0; border-bottom: 1px solid #ece8e0; }
+  td:last-child { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+  .note { margin-top: 8px !important; font-size: 13px !important; }
+
+  /* The control panel: one place for everything, same button style throughout */
+  .dock { position: fixed; z-index: 3; left: 50%; transform: translateX(-50%); bottom: max(14px, env(safe-area-inset-bottom));
+    width: min(900px, calc(100vw - 24px)); background: var(--panel); border: 1px solid var(--line); border-radius: 20px;
+    padding: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); display: grid; gap: 8px; }
+  .row { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  .dock button { appearance: none; min-height: 50px; border: 2px solid var(--line); background: #fff; border-radius: 13px;
+    padding: 6px 10px; font-size: 16px; font-weight: 650; cursor: pointer; line-height: 1.15; }
+  .dock button:hover { border-color: #b9b2a5; }
+  .dock button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .mode { grid-template-columns: 1fr 1fr; }
+  .mode button { min-height: 56px; font-size: 18px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .mode svg { width: 24px; height: 24px; flex: none; }
+  /* On/off switches say their state in words, not just colour */
+  .dock .switch { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; }
+  .switch .state { flex: none; font-size: 14px; font-weight: 750; border-radius: 999px; padding: 4px 10px; background: #ece8e0; color: var(--muted); }
+  .dock .switch[aria-pressed="true"] { background: #fff; color: var(--ink); border-color: var(--accent); }
+  .switch[aria-pressed="true"] .state { background: var(--accent); color: #fff; }
+
+  /* Zoom: big buttons on the right, no pinching needed */
+  .zoom { position: fixed; z-index: 3; right: 16px; top: 50%; transform: translateY(-50%); display: grid; gap: 10px; }
+  .zoom button { appearance: none; width: 60px; height: 60px; border-radius: 16px; border: 2px solid var(--line); background: #fff;
+    font-size: 30px; font-weight: 600; line-height: 1; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.10); display: grid; place-items: center; }
+  .zoom button.reset { font-size: 13px; font-weight: 700; gap: 2px; padding-top: 6px; }
+  .zoom button.reset svg { width: 22px; height: 22px; }
+
+  .label { position: fixed; left: 0; top: 0; pointer-events: none; transform: translate(-50%, -50%); background: rgba(255,255,255,0.94);
+    border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 14px; font-weight: 650; white-space: nowrap; color: var(--ink); }
+  .label span { font-weight: 400; color: var(--muted); margin-left: 5px; }
+  #loading { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 18px; }
+
+  /* 2D plan */
   .plan2d { position: fixed; inset: 0; z-index: 1; background: #f4f3ef; overflow: hidden; touch-action: none; cursor: grab; }
   .plan2d.dragging { cursor: grabbing; }
-  #planContent { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+  #planContent { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; background: #fff; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.10); }
   #planContent svg, #planContent img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
-  #planContent.paper { background: #fff; border-radius: 6px; box-shadow: 0 10px 40px rgba(0,0,0,0.10); }
-  .plan-switch { position: fixed; z-index: 4; left: 50%; top: 16px; transform: translateX(-50%); display: flex; gap: 4px; padding: 4px;
-    background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
-  .plan-switch button { appearance: none; border: 0; background: transparent; color: var(--ink); padding: 7px 12px; border-radius: 9px;
-    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-  .plan-switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
-  .card, .bar, .hint { z-index: 3; }
-  .plan-switch .short { display: none; }
-  @media (max-width: 900px) { .plan-switch { top: auto; left: 16px; transform: none; } .plan-switch .short { display: inline; } .plan-switch .long { display: none; } }
-  @media (max-width: 640px) { body.in2d .card p { display: none; } body.in2d .card details { margin-top: 4px; } }
-  @media (max-width: 640px) {
-    .card { right: 16px; max-width: none; padding: 12px 14px; }
-    .bar { left: 16px; right: 16px; transform: none; max-width: none; }
-    .hint { display: none; }
-    .furn-toggle { top: auto; bottom: 120px; padding: 10px 16px; }
-    .bar button { padding: 8px 10px; font-size: 12.5px; }
+
+  @media (max-width: 700px) {
+    html, body { font-size: 15px; }
+    .card { right: 12px; left: 12px; top: 12px; max-width: none; padding: 10px 14px; }
+    .card h1 { font-size: 16px; }
+    .card p { font-size: 14px; }
+    .dock { padding: 8px; gap: 6px; border-radius: 18px; }
+    .row { gap: 6px; grid-template-columns: repeat(3, 1fr); }
+    .row.two, .row.mode { grid-template-columns: 1fr 1fr; }
+    .card .long { display: none; }
+    .dock button { min-height: 48px; font-size: 15px; padding: 4px 6px; }
+    .mode button { min-height: 52px; font-size: 16px; }
+    .dock .switch { flex-direction: column; justify-content: center; gap: 3px; text-align: center; }
+    .switch .state { font-size: 12px; padding: 2px 8px; }
+    .zoom { right: 12px; gap: 8px; }
+    .label { font-size: 12px; padding: 3px 8px; }
+    .zoom button { width: 52px; height: 52px; font-size: 26px; }
   }
 </style>
 <script type="importmap">
@@ -74,51 +91,66 @@
 </head>
 <body>
 <div id="app"></div>
-<div id="loading">Loading model… <span id="pct"></span></div>
+<div id="loading">Loading the home… <span id="pct"></span></div>
 <div id="labels"></div>
+
+<div id="plan2d" class="plan2d hidden" aria-label="Floor plan">
+  <div id="planContent"></div>
+</div>
 
 <div class="card">
   <h1>Maplewoods, Chempaka Court · Type D1</h1>
-  <p>3 bed + study · traced to scale from the developer plan · use the furniture button to compare with the empty unit, and 2D plan for the floor plan</p>
+  <p>3 bedrooms and a study, drawn to scale.<span class="long"> Use the buttons at the bottom. Drag the picture to look around.</span></p>
   <details>
-    <summary>Room areas</summary>
+    <summary>Room sizes</summary>
     <table>
       <tr><td>Living / Dining</td><td>50.96 m²</td></tr>
       <tr><td>Master Bedroom</td><td>18.91 m²</td></tr>
       <tr><td>Kitchen</td><td>11.46 m²</td></tr>
       <tr><td>Study</td><td>11.35 m²</td></tr>
       <tr><td>Bedroom 2</td><td>11.27 m²</td></tr>
-      <tr><td>Bedroom 3</td><td>10.00 m²</td></tr>
+      <tr><td>Bedroom 3 (kids' room)</td><td>10.00 m²</td></tr>
       <tr><td>Balcony</td><td>5.78 m²</td></tr>
     </table>
     <p class="note">Areas from the developer brochure. Ceiling height (2.8 m), door and window sizes are estimates. Finishes follow a walkthrough video. Built with <a href="https://github.com/pascalorg/editor" target="_blank" rel="noopener">Pascal Editor</a>.</p>
   </details>
 </div>
-<button id="furnBtn" class="furn-toggle" aria-pressed="true">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4H2z"/><path d="M5 17v2M19 17v2"/></svg>
-  <span id="furnLabel">Hide furniture</span>
-</button>
-<div class="hint" id="hint">Drag to rotate · scroll or pinch to zoom · right-drag to pan</div>
 
-<div id="plan2d" class="plan2d hidden" aria-label="2D floor plan">
-  <div id="planContent"></div>
-</div>
-<div id="planSwitch" class="plan-switch hidden" role="group" aria-label="Plan">
-  <button data-plan="drawn" aria-pressed="true"><span class="long">Drawn plan</span><span class="short">Drawn</span></button>
-  <button data-plan="brochure" aria-pressed="false"><span class="long">Original brochure</span><span class="short">Brochure</span></button>
+<div class="zoom" role="group" aria-label="Zoom">
+  <button id="zoomIn" title="Zoom in" aria-label="Zoom in">+</button>
+  <button id="zoomOut" title="Zoom out" aria-label="Zoom out">&minus;</button>
+  <button id="resetView" class="reset" title="Back to the start of this view" aria-label="Reset the view">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>Reset
+  </button>
 </div>
 
-<div class="bar" role="toolbar" aria-label="Views">
-  <button id="planBtn" aria-pressed="false">2D plan</button>
-  <button data-view="overview" aria-pressed="true">Overview</button>
-  <button data-view="top">Top</button>
-  <button data-view="living">Living</button>
-  <button data-view="kitchen">Kitchen</button>
-  <button data-view="master">Master</button>
-  <span class="sep"></span>
-  <button id="cut" aria-pressed="true">Cut walls</button>
-  <button id="labelsBtn" aria-pressed="true">Labels</button>
-</div>
+<nav class="dock" aria-label="Controls">
+  <div class="row mode" role="group" aria-label="What to show">
+    <button data-mode="3d" aria-pressed="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>3D model
+    </button>
+    <button data-mode="2d" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M3 12h8v9M11 3v5M15 12h6"/></svg>Floor plan
+    </button>
+  </div>
+  <div class="row" id="places" role="group" aria-label="Go to a room">
+    <button data-view="overview" aria-pressed="true">Whole home</button>
+    <button data-view="living">Living room</button>
+    <button data-view="kitchen">Kitchen</button>
+    <button data-view="master">Master bedroom</button>
+    <button data-view="bed2">Bedroom 2</button>
+    <button data-view="kids">Kids' room</button>
+  </div>
+  <div class="row two hidden" id="plans" role="group" aria-label="Which plan">
+    <button data-plan="drawn" aria-pressed="true">Our layout</button>
+    <button data-plan="brochure" aria-pressed="false">Developer's plan</button>
+  </div>
+  <div class="row" id="switches" role="group" aria-label="Show or hide">
+    <button class="switch" id="tFurn" aria-pressed="true"><span>Furniture</span><span class="state">On</span></button>
+    <button class="switch" id="tNames" aria-pressed="true"><span>Room names</span><span class="state">On</span></button>
+    <button class="switch" id="tWalls" aria-pressed="true"><span>Low walls</span><span class="state">On</span></button>
+  </div>
+</nav>
 
 <script type="module">
 import * as THREE from 'three'
@@ -127,7 +159,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
 import { buildFurniture } from './furniture.js'
 
-const app = document.getElementById('app')
+const $ = (id) => document.getElementById(id)
+const app = $('app')
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true })
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -161,150 +194,194 @@ const ground = new THREE.Mesh(new THREE.CircleGeometry(40, 64), new THREE.MeshSt
 ground.rotation.x = -Math.PI / 2; ground.position.y = -0.2; ground.receiveShadow = true
 scene.add(ground)
 
-// Cut-away: hide everything above 1.3 m so the rooms read from above
+// Draw only when something changed: keeps phones cool and idle tabs cheap
+let dirty = true
+const invalidate = () => { dirty = true }
+controls.addEventListener('change', invalidate)
+
+// ---------- On/off switches ----------
+const params = new URLSearchParams(location.search)
+const state = { furniture: params.get('furniture') !== '0', names: true, lowWalls: true, mode: '3d', place: 'overview', plan: 'drawn' }
+function setSwitch(id, on) {
+  const b = $(id); b.setAttribute('aria-pressed', String(on)); b.querySelector('.state').textContent = on ? 'On' : 'Off'
+}
+
+// Low walls: hide everything above 1.3 m so the rooms read from above
 const cutPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1.3)
-let cut = true
-const applyCut = () => { renderer.clippingPlanes = cut ? [cutPlane] : []; document.getElementById('cut').setAttribute('aria-pressed', String(cut)) }
-applyCut()
+const applyWalls = () => { renderer.clippingPlanes = state.lowWalls ? [cutPlane] : []; setSwitch('tWalls', state.lowWalls); invalidate() }
+applyWalls()
 
 // Plan coordinates come from the brochure trace (px); world = plan metres minus the building offset
 const S = 0.0205, OFF = [-7.51, -5.74]
 const W = (px, py) => new THREE.Vector3((px - 241) * S + OFF[0], 0, (py - 566) * S + OFF[1])
 const rooms = [
   ['Living / Dining', 460, 880, '50.96 m²'], ['Kitchen', 320, 770, '11.46 m²'], ['Master Bedroom', 860, 920, '18.91 m²'],
-  ['Bedroom 2', 770, 670, '11.27 m²'], ['Bedroom 3', 905, 740, '10.00 m²'], ['Study', 650, 1045, '11.35 m²'],
+  ['Bedroom 2', 770, 670, '11.27 m²'], ["Kids' room", 905, 740, '10.00 m²'], ['Study', 650, 1045, '11.35 m²'],
   ['Master Bath', 690, 870, ''], ['Bath 2', 650, 690, ''], ['Powder', 565, 615, ''], ['Balcony', 460, 1163, '5.78 m²'],
   ['Utility', 270, 893, ''], ['Yard', 330, 1000, ''], ['WC', 265, 985, ''], ['Foyer', 300, 610, ''],
 ]
-const labelsEl = document.getElementById('labels')
+const labelsEl = $('labels')
 const labels = rooms.map(([name, x, y, area]) => {
   const el = document.createElement('div'); el.className = 'label'
   el.innerHTML = area ? `${name}<span>${area}</span>` : name
   labelsEl.appendChild(el)
   const p = W(x, y); p.y = 0.4
-  return { el, p }
+  return { el, p, main: Boolean(area) }
 })
-let showLabels = true
+let model = null
+const ray = new THREE.Raycaster(), toLabel = new THREE.Vector3()
+let lastOcclusion = 0
+const hiddenByWall = new Set()
+/** Inside the home (full-height walls), names of rooms behind a wall are hidden. Checked a few times a second. */
+function updateOcclusion(now) {
+  if (now - lastOcclusion < 150) return
+  lastOcclusion = now
+  hiddenByWall.clear()
+  if (state.lowWalls || !model) return
+  for (const l of labels) {
+    toLabel.copy(l.p).sub(camera.position)
+    const dist = toLabel.length()
+    ray.set(camera.position, toLabel.normalize()); ray.far = dist - 0.3
+    if (ray.intersectObject(model, true).length) hiddenByWall.add(l)
+  }
+}
 
+// ---------- Places to look from ----------
+// Inside a room the camera stands in a corner with a wider lens, so the whole room fits.
 const views = {
-  overview: { pos: [-9.5, 13, 13], target: [0, 0, 0.4], cut: true },
-  top: { pos: [0, 21, 0.35], target: [0, 0, 0.3], cut: true },
-  living: { pos: W(470, 1095).setY(1.6).toArray(), target: W(470, 650).setY(1.25).toArray(), cut: false },
-  kitchen: { pos: W(335, 690).setY(1.6).toArray(), target: W(285, 840).setY(0.9).toArray(), cut: false },
-  master: { pos: W(790, 1005).setY(1.6).toArray(), target: W(965, 850).setY(1.2).toArray(), cut: false },
+  overview: { pos: [-9.5, 13, 13], target: [0, 0, 0.4], cut: true, fov: 45 },
+  living: { pos: W(470, 1095).setY(1.6).toArray(), target: W(470, 650).setY(1.15).toArray(), cut: false, fov: 60 },
+  kitchen: { pos: W(335, 690).setY(1.6).toArray(), target: W(285, 840).setY(0.9).toArray(), cut: false, fov: 62 },
+  master: { pos: W(755, 1022).setY(1.9).toArray(), target: W(880, 880).setY(0.35).toArray(), cut: false, fov: 68 },
+  bed2: { pos: W(677, 586).setY(1.95).toArray(), target: W(800, 690).setY(0.35).toArray(), cut: false, fov: 68 },
+  kids: { pos: W(890, 817).setY(1.9).toArray(), target: W(905, 690).setY(0.3).toArray(), cut: false, fov: 68 },
+}
+// Keep the picture centred in the space left between the title card and the control panel.
+function freeArea() {
+  const narrow = innerWidth <= 900
+  const top = narrow ? document.querySelector('.card').getBoundingClientRect().bottom : 0
+  const bottom = document.querySelector('.dock').getBoundingClientRect().top
+  return { top, bottom, h: Math.max(160, bottom - top) }
+}
+function frameCamera() {
+  const { top, bottom } = freeArea()
+  const shift = (top + bottom) / 2 - innerHeight / 2
+  camera.setViewOffset(innerWidth, innerHeight, 0, -shift, innerWidth, innerHeight)
+  camera.updateProjectionMatrix(); invalidate()
 }
 let tween = null
 function goto(name, instant = false) {
   const v = views[name]
-  cut = v.cut; applyCut()
+  state.place = name
+  state.lowWalls = v.cut; applyWalls()
   document.querySelectorAll('[data-view]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name)))
   const fromP = camera.position.clone(), fromT = controls.target.clone()
   const toT = new THREE.Vector3(...v.target), toP = new THREE.Vector3(...v.pos)
-  // Portrait screens need the outside views pulled back to fit the whole unit
-  if (v.cut && camera.aspect < 1) toP.sub(toT).multiplyScalar(Math.min(1.7, 0.95 / camera.aspect)).add(toT)
-  if (instant) { camera.position.copy(toP); controls.target.copy(toT); controls.update(); return }
-  tween = { fromP, fromT, toP, toT, t0: performance.now(), d: 900 }
+  // Outside views pull back on portrait screens and when the panels leave less room, so the whole home fits
+  if (v.cut) {
+    const k = Math.min(2.4, Math.max(camera.aspect < 1 ? Math.min(1.7, 0.95 / camera.aspect) : 1, (innerHeight / freeArea().h) * 0.8))
+    toP.sub(toT).multiplyScalar(k).add(toT)
+  }
+  // Portrait phones see less from side to side, so widen the lens a little indoors
+  const fromFov = camera.fov, toFov = !v.cut && camera.aspect < 1 ? Math.min(85, v.fov * 1.2) : v.fov
+  if (instant) { camera.position.copy(toP); controls.target.copy(toT); camera.fov = toFov; camera.updateProjectionMatrix(); controls.update(); invalidate(); return }
+  tween = { fromP, fromT, toP, toT, fromFov, toFov, t0: performance.now(), d: 900 }
 }
-document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => { show2D(false); goto(b.dataset.view) }))
-document.getElementById('cut').addEventListener('click', () => { cut = !cut; applyCut() })
-document.getElementById('labelsBtn').addEventListener('click', (e) => {
-  showLabels = !showLabels; e.currentTarget.setAttribute('aria-pressed', String(showLabels)); labelsEl.classList.toggle('hidden', !showLabels || in2D)
-  syncPlanLayers()
-})
 controls.addEventListener('start', () => { tween = null })
 
-// Furniture layer: on by default, ?furniture=0 starts with the empty unit
+// ---------- Furniture ----------
 let furniture = null
-let showFurniture = new URLSearchParams(location.search).get('furniture') !== '0'
-const furnBtn = document.getElementById('furnBtn')
-const syncFurnBtn = () => {
-  furnBtn.setAttribute('aria-pressed', String(showFurniture))
-  document.getElementById('furnLabel').textContent = showFurniture ? 'Hide furniture' : 'Show furniture'
+const applyFurniture = () => {
+  setSwitch('tFurn', state.furniture)
+  if (furniture) furniture.visible = state.furniture
+  syncPlanLayers(); invalidate()
 }
-syncFurnBtn()
-furnBtn.addEventListener('click', () => {
-  showFurniture = !showFurniture
-  syncFurnBtn()
-  if (furniture) furniture.visible = showFurniture
-  syncPlanLayers()
-  invalidate()
-})
-// On phones the button sits just above the toolbar, whose height depends on how its buttons wrap
-const bar = document.querySelector('.bar')
-const placeFurnBtn = () => { furnBtn.style.bottom = matchMedia('(max-width: 640px)').matches ? `${bar.offsetHeight + 28}px` : '' }
-placeFurnBtn()
-addEventListener('resize', placeFurnBtn)
+const applyNames = () => {
+  setSwitch('tNames', state.names)
+  labelsEl.classList.toggle('hidden', !state.names || state.mode === '2d')
+  syncPlanLayers(); invalidate()
+}
 
-// ---------- 2D plan: a drawn plan with the furniture, or the original brochure ----------
-const plan2d = document.getElementById('plan2d'), planContent = document.getElementById('planContent'), planSwitch = document.getElementById('planSwitch')
-const planBtn = document.getElementById('planBtn'), hint = document.getElementById('hint')
-let in2D = false, planKind = 'drawn', drawnSvg = null
+// ---------- 2D plan: a drawn plan with the furniture, or the developer's brochure ----------
+const plan2d = $('plan2d'), planContent = $('planContent'), dock = document.querySelector('.dock'), zoomBox = document.querySelector('.zoom')
+let drawnSvg = null
 const pz = { s: 1, x: 0, y: 0, w: 1, h: 1 }
 const applyPan = () => { planContent.style.transform = `translate(${pz.x}px, ${pz.y}px) scale(${pz.s})` }
 function syncPlanLayers() {
   if (!drawnSvg) return
-  drawnSvg.querySelector('#furniture').style.display = showFurniture ? '' : 'none'
-  drawnSvg.querySelector('#room-labels').style.display = showLabels ? '' : 'none'
+  drawnSvg.querySelector('#furniture').style.display = state.furniture ? '' : 'none'
+  drawnSvg.querySelector('#room-labels').style.display = state.names ? '' : 'none'
 }
-// On phones and tablets the switch sits just above the toolbar, beside the furniture button.
-function placePlanSwitch() { planSwitch.style.bottom = innerWidth <= 900 ? `${bar.offsetHeight + 28}px` : '' }
-// Fit the plan between the title card, the switch and the toolbar.
+// Fit the plan between the title card, the zoom buttons and the control panel.
 function fitPlan() {
-  placePlanSwitch()
   const narrow = innerWidth <= 900
-  const rects = [bar, planSwitch, furnBtn].map((el) => el.getBoundingClientRect())
-  const top = narrow ? document.querySelector('.card').getBoundingClientRect().bottom + 10 : 64
-  const bottom = (narrow ? Math.min(...rects.map((r) => r.top)) : rects[0].top) - 10
-  const left = narrow ? 12 : 350, right = narrow ? 12 : 16
-  const aw = innerWidth - left - right, ah = Math.max(120, bottom - top)
+  const card = document.querySelector('.card').getBoundingClientRect()
+  const top = narrow ? card.bottom + 10 : 16
+  const bottom = dock.getBoundingClientRect().top - 10
+  const left = narrow ? 10 : card.right + 16
+  const right = innerWidth - zoomBox.getBoundingClientRect().left + 10
+  const aw = Math.max(120, innerWidth - left - right), ah = Math.max(120, bottom - top)
   pz.s = Math.min(aw / pz.w, ah / pz.h)
   pz.x = left + (aw - pz.w * pz.s) / 2; pz.y = top + (ah - pz.h * pz.s) / 2
   applyPan()
 }
 async function loadPlan(kind) {
-  planKind = kind
-  planSwitch.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.plan === kind)))
+  state.plan = kind
+  document.querySelectorAll('[data-plan]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.plan === kind)))
   if (kind === 'drawn') {
     if (!drawnSvg) {
-      const text = await (await fetch('./plan.svg')).text()
-      const holder = document.createElement('div'); holder.innerHTML = text
+      const holder = document.createElement('div'); holder.innerHTML = await (await fetch('./plan.svg')).text()
       drawnSvg = holder.querySelector('svg')
     }
     planContent.replaceChildren(drawnSvg)
     pz.w = Number(drawnSvg.getAttribute('width')); pz.h = Number(drawnSvg.getAttribute('height'))
     syncPlanLayers()
   } else {
-    const img = new Image(); img.src = './brochure.jpg'; img.alt = 'Developer brochure floor plan, Maplewoods Type D1'
+    const img = new Image(); img.src = './brochure.jpg'; img.alt = "Developer's brochure floor plan, Maplewoods Type D1"
     await img.decode().catch(() => {})
     planContent.replaceChildren(img)
     pz.w = img.naturalWidth || 1179; pz.h = img.naturalHeight || 1473
   }
   planContent.style.width = `${pz.w}px`; planContent.style.height = `${pz.h}px`
-  planContent.classList.add('paper')
   fitPlan()
 }
-function show2D(on) {
-  in2D = on
-  document.body.classList.toggle('in2d', on)
-  plan2d.classList.toggle('hidden', !on); planSwitch.classList.toggle('hidden', !on)
-  planBtn.setAttribute('aria-pressed', String(on))
-  labelsEl.classList.toggle('hidden', on || !showLabels)
-  document.getElementById('cut').disabled = on
-  hint.textContent = on ? 'Drag to move · scroll or pinch to zoom · double-click to fit' : 'Drag to rotate · scroll or pinch to zoom · right-drag to pan'
-  if (on) {
-    document.querySelectorAll('[data-view]').forEach((b) => b.setAttribute('aria-pressed', 'false'))
-    loadPlan(planKind)
-  }
-  invalidate()
+
+// ---------- 3D model or floor plan ----------
+function setMode(mode) {
+  state.mode = mode
+  document.querySelectorAll('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === mode)))
+  const flat = mode === '2d'
+  plan2d.classList.toggle('hidden', !flat)
+  $('places').classList.toggle('hidden', flat); $('plans').classList.toggle('hidden', !flat)
+  $('tWalls').classList.toggle('hidden', flat)
+  $('switches').classList.toggle('two', flat)
+  labelsEl.classList.toggle('hidden', flat || !state.names)
+  if (flat) loadPlan(state.plan)
+  frameCamera()
 }
-planBtn.addEventListener('click', () => { if (in2D) { show2D(false); goto('overview') } else show2D(true) })
-planSwitch.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => loadPlan(b.dataset.plan)))
-addEventListener('resize', () => { if (in2D) fitPlan() })
-// Pan with one finger or the mouse, pinch or scroll to zoom.
+document.querySelectorAll('[data-mode]').forEach((b) => b.addEventListener('click', () => setMode(b.dataset.mode)))
+document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => { setMode('3d'); goto(b.dataset.view) }))
+document.querySelectorAll('[data-plan]').forEach((b) => b.addEventListener('click', () => loadPlan(b.dataset.plan)))
+$('tFurn').addEventListener('click', () => { state.furniture = !state.furniture; applyFurniture() })
+$('tNames').addEventListener('click', () => { state.names = !state.names; applyNames() })
+$('tWalls').addEventListener('click', () => { state.lowWalls = !state.lowWalls; applyWalls() })
+addEventListener('resize', () => { if (state.mode === '2d') fitPlan() })
+
+// ---------- Zoom buttons, and drag or pinch for those who like it ----------
 const zoomAt = (cx, cy, k) => {
   const s = Math.min(Math.max(pz.s * k, 0.05), 12); k = s / pz.s
   pz.x = cx - (cx - pz.x) * k; pz.y = cy - (cy - pz.y) * k; pz.s = s; applyPan()
 }
+function zoom3D(k) {
+  const off = camera.position.clone().sub(controls.target)
+  const len = THREE.MathUtils.clamp(off.length() * k, 0.8, 45)
+  tween = { fromP: camera.position.clone(), fromT: controls.target.clone(), toP: controls.target.clone().add(off.setLength(len)), toT: controls.target.clone(), t0: performance.now(), d: 350 }
+}
+const planCentre = () => { const r = plan2d.getBoundingClientRect(); return [r.width / 2, (r.height - dock.offsetHeight) / 2] }
+$('zoomIn').addEventListener('click', () => (state.mode === '2d' ? zoomAt(...planCentre(), 1.35) : zoom3D(0.72)))
+$('zoomOut').addEventListener('click', () => (state.mode === '2d' ? zoomAt(...planCentre(), 1 / 1.35) : zoom3D(1.38)))
+$('resetView').addEventListener('click', () => (state.mode === '2d' ? fitPlan() : goto(state.place)))
+
 plan2d.addEventListener('wheel', (e) => { e.preventDefault(); zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0015)) }, { passive: false })
 plan2d.addEventListener('dblclick', fitPlan)
 const ptrs = new Map()
@@ -322,61 +399,64 @@ plan2d.addEventListener('pointermove', (e) => {
 const endPtr = (e) => { ptrs.delete(e.pointerId); pinch = null; if (!ptrs.size) plan2d.classList.remove('dragging') }
 plan2d.addEventListener('pointerup', endPtr); plan2d.addEventListener('pointercancel', endPtr)
 
+// ---------- Load the home ----------
+setSwitch('tFurn', state.furniture)
 new GLTFLoader().load('./model.glb', (gltf) => {
-  const model = gltf.scene
-  model.traverse((o) => {
+  const loaded = gltf.scene
+  loaded.traverse((o) => {
     if (!o.isMesh) return
     o.castShadow = true; o.receiveShadow = true
     const mats = Array.isArray(o.material) ? o.material : [o.material]
     mats.forEach((m) => { if (m.transparent && m.opacity < 1) { m.depthWrite = false; o.castShadow = false } })
   })
-  scene.add(model)
+  scene.add(loaded)
+  model = loaded
   // Stand the furniture on the real floor finish: probe the living-room floor height
   model.updateMatrixWorld(true)
   const probe = new THREE.Raycaster(W(470, 960).setY(5), new THREE.Vector3(0, -1, 0))
   const hit = probe.intersectObject(model, true).find((h) => h.point.y < 0.3)
   furniture = buildFurniture(hit ? hit.point.y + 0.002 : 0.01)
-  furniture.visible = showFurniture
+  furniture.visible = state.furniture
   scene.add(furniture)
-  document.getElementById('loading').remove()
-  goto('overview', true)
-  if (new URLSearchParams(location.search).get('view') === '2d') show2D(true)
+  $('loading').remove()
+  frameCamera()
+  const start = params.get('view')
+  goto(views[start] ? start : 'overview', true)
+  if (start === '2d') setMode('2d')
   invalidate()
-}, (e) => { if (e.total) document.getElementById('pct').textContent = Math.round((e.loaded / e.total) * 100) + '%' },
-(err) => { document.getElementById('loading').textContent = 'Could not load the model.'; console.error(err) })
+}, (e) => { if (e.total) $('pct').textContent = Math.round((e.loaded / e.total) * 100) + '%' },
+(err) => { $('loading').textContent = 'Sorry, the home could not be loaded. Please refresh the page.'; console.error(err) })
 
 const v = new THREE.Vector3()
-// Draw only when something changed: keeps phones cool and idle tabs cheap
-let dirty = true
-const invalidate = () => { dirty = true }
-controls.addEventListener('change', invalidate)
-document.querySelectorAll('.bar button').forEach((b) => b.addEventListener('click', invalidate))
 function render(now) {
   requestAnimationFrame(render)
   if (tween) {
     const k = Math.min(1, (now - tween.t0) / tween.d), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2
     camera.position.lerpVectors(tween.fromP, tween.toP, e); controls.target.lerpVectors(tween.fromT, tween.toT, e)
+    if (tween.toFov) { camera.fov = tween.fromFov + (tween.toFov - tween.fromFov) * e; camera.updateProjectionMatrix() }
     if (k >= 1) tween = null
     dirty = true
   }
   if (controls.update()) dirty = true
-  if (!dirty) return
+  if (!dirty && now - lastOcclusion < 400 && now - lastOcclusion > 160 && !state.lowWalls) dirty = true
+  if (!dirty || state.mode === '2d') return
   dirty = false
   renderer.render(scene, camera)
-  if (showLabels) {
-    const w = window.innerWidth, h = window.innerHeight
+  if (state.names) {
+    const w = window.innerWidth, h = window.innerHeight, narrow = w <= 700
+    updateOcclusion(now)
     for (const l of labels) {
       v.copy(l.p).project(camera)
-      const visible = v.z < 1 && Math.abs(v.x) < 1.1 && Math.abs(v.y) < 1.1 && camera.position.distanceTo(l.p) > 2.2
+      const visible = v.z < 1 && Math.abs(v.x) < 1.1 && Math.abs(v.y) < 1.1 && camera.position.distanceTo(l.p) > 2.2 && !hiddenByWall.has(l) && (!narrow || l.main)
       l.el.style.display = visible ? '' : 'none'
       if (visible) l.el.style.transform = `translate(${(v.x * 0.5 + 0.5) * w}px, ${(-v.y * 0.5 + 0.5) * h}px) translate(-50%, -50%)`
     }
   }
 }
 requestAnimationFrame(render)
-window.viewer = { camera, controls, invalidate, W }
+window.viewer = { camera, controls, invalidate, W, goto, setMode }
 addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); invalidate()
+  camera.aspect = window.innerWidth / window.innerHeight; renderer.setSize(window.innerWidth, window.innerHeight); frameCamera()
 })
 </script>
 </body>

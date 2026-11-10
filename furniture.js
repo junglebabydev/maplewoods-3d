@@ -2,6 +2,7 @@
 // Positions are plan metres from the brochure trace (x east, z south); each piece faces +z before rotation.
 import * as THREE from 'three'
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js'
+import { LAYOUT } from './layout.js'
 
 const OFF = [-7.51, -5.74] // plan metres -> viewer world
 const mat = (color, roughness = 0.7, metalness = 0, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness, metalness, ...extra })
@@ -195,6 +196,19 @@ function bookDisplay() {
   }
   return g
 }
+function kidsBed(duvet = 'mint') { // IKEA SNIGLAR-style junior bed in beech, 70x160 mattress, about 77 x 167 cm
+  const g = new THREE.Group(), w = 0.77, d = 1.67, cover = { mint: M.mint, pink: M.pink2 }[duvet] ?? M.mint
+  for (const sx of [-1, 1]) for (const [sz, h] of [[-1, 0.62], [1, 0.46]]) box(g, 0.045, h, 0.045, M.beech, sx * (w / 2 - 0.0225), 0, sz * (d / 2 - 0.0225), 0.008)
+  for (const sx of [-1, 1]) box(g, 0.025, 0.1, d - 0.09, M.beech, sx * (w / 2 - 0.02), 0.18, 0)
+  for (const [sz, top] of [[-1, 0.6], [1, 0.44]]) {
+    box(g, w - 0.09, 0.04, 0.03, M.beech, 0, top - 0.04, sz * (d / 2 - 0.0225))
+    for (let i = 0; i < 5; i++) box(g, 0.035, top - 0.3, 0.02, M.beech, -0.24 + i * 0.12, 0.26, sz * (d / 2 - 0.0225))
+  }
+  box(g, 0.7, 0.1, 1.6, M.pillow, 0, 0.22, 0, 0.03)
+  box(g, 0.46, 0.08, 0.3, M.pillow, 0, 0.32, -0.6, 0.04)
+  box(g, 0.68, 0.05, 1.05, cover, 0, 0.32, 0.22, 0.02)
+  return g
+}
 function playMat() { const g = new THREE.Group(); [M.mint, M.pink, M.cream, M.pink2].forEach((m, i) => box(g, 0.5, 0.04, 1.4, m, -0.75 + i * 0.5, 0, 0, 0.01)); return g }
 function glider() {
   const g = new THREE.Group()
@@ -235,49 +249,20 @@ function easel() {
   return g
 }
 
-// ---------- Layout ----------
+// ---------- Layout (positions live in layout.js) ----------
+const PIECES = {
+  tvConsole, tv65, rug, ottoman, sofa, wallLadder, playKitchen, sideboard, diningTable, diningChair, trippTrapp,
+  greyBed, nightstand: () => nightstand(), nightstandSmall: () => nightstand(0.4, 0.4, 0.55, M.espresso), tableLamp, whiteBed, tvOnStand,
+  crib, kidsBed: (e) => kidsBed(e.color), playMat, glider, gliderOttoman, kidsWardrobe, bookDisplay,
+  desk, printerCart, officeChair, fileCabinet, easel,
+}
 export function buildFurniture(floorY = 0.01) {
   const root = new THREE.Group(); root.name = 'Furniture'
-  const put = (g, x, z, rot = 0, y = 0, name = '') => {
-    g.position.set(x + OFF[0], floorY + y, z + OFF[1]); g.rotation.y = (rot * Math.PI) / 180; g.name = name; root.add(g)
+  for (const e of LAYOUT) {
+    const g = PIECES[e.piece](e)
+    g.position.set(e.x + OFF[0], floorY + (e.y ?? 0), e.z + OFF[1]); g.rotation.y = (e.rot * Math.PI) / 180; g.name = e.name
+    root.add(g)
   }
-  // Living: TV wall to the west, sofa facing it, play corner along the same wall
-  put(tvConsole(), 2.7, 9.1, 90, 0, 'TV console')
-  put(tv65(), 2.64, 9.1, 90, 0.58, 'TV')
-  put(rug(), 3.95, 9.1, 90, 0, 'Rug')
-  put(ottoman(), 3.95, 9.1, 90, 0.012, 'Ottoman')
-  put(sofa(), 5.43, 9.1, -90, 0, 'Sofa')
-  put(wallLadder(), 2.46, 7.3, 90, 0, 'Wall ladder')
-  put(playKitchen(), 2.68, 10.75, 90, 0, 'Play kitchen')
-  // Dining
-  put(sideboard(), 4.3, 0.34, 0, 0, 'Sideboard')
-  put(diningTable(), 5.0, 4.6, 90, 0, 'Dining table')
-  for (const z of [4.0, 4.6, 5.2]) put(diningChair(), 4.1, z, 90, 0, 'Dining chair')
-  for (const z of [4.3, 4.9]) put(diningChair(), 5.9, z, -90, 0, 'Dining chair')
-  put(trippTrapp(), 5.0, 5.85, 180, 0, 'High chair')
-  // Master bedroom
-  put(greyBed(), 12.9, 6.43, 0, 0, 'King bed')
-  put(nightstand(), 11.62, 5.53, 0, 0, 'Nightstand')
-  put(nightstand(), 14.2, 5.53, 0, 0, 'Nightstand')
-  // Bedroom 2: nursery
-  put(crib(), 9.6, 0.55, 0, 0, 'Crib')
-  put(playMat(), 10.6, 1.85, 0, 0, 'Play mat')
-  put(glider(), 12.62, 0.62, 205, 0, 'Glider')
-  put(gliderOttoman(), 12.05, 1.45, 205, 0, 'Glider ottoman')
-  put(kidsWardrobe(), 12.03, 2.6, -90, 0, 'Kids wardrobe')
-  put(bookDisplay(), 11.2, 3.08, 180, 0, 'Book display')
-  // Bedroom 3: white bed and TV
-  put(whiteBed(), 13.6, 2.86, 0, 0, 'Queen bed')
-  put(nightstand(0.4, 0.4, 0.55, M.espresso), 14.7, 2.02, 0, 0, 'Nightstand')
-  put(tableLamp(), 14.7, 2.02, 0, 0.55, 'Lamp')
-  put(tvOnStand(), 13.6, 4.95, 180, 0, 'TV on stand')
-  // Study
-  put(desk(), 8.6, 11.08, 180, 0, 'Desk')
-  put(printerCart(), 9.55, 11.13, 180, 0, 'Printer cart')
-  put(officeChair(), 8.6, 10.4, 0, 0, 'Office chair')
-  put(diningChair(), 9.75, 9.6, -60, 0, 'Side chair')
-  put(fileCabinet(), 9.98, 8.6, -90, 0, 'Filing cabinet')
-  put(easel(), 7.35, 9.7, 100, 0, 'Whiteboard')
   root.traverse((o) => { if (o.isMesh) { o.castShadow = o.material !== M.net; o.receiveShadow = true } })
   return root
 }

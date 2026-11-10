@@ -1,27 +1,32 @@
 // Draws plan.svg (the 2D floor plan with furniture) from the brochure trace.
 // Uses the plan geometry from a Floorimate checkout: walls, doors and windows from its sample home,
-// which is traced from the same brochure. Furniture matches furniture.js.
+// which is traced from the same brochure. Furniture comes from layout.js, the same file the 3D viewer uses.
 // Needs a Floorimate checkout next to this repo (../floorplay). From inside it:
 //   npx tsx ../maplewoods-3d/source/make-plan.mts ../maplewoods-3d/plan.svg
 import { writeFileSync } from 'node:fs'
 import { sampleProject } from '../../floorplay/src/core/sample'
 import { planDrawing, type Prim } from '../../floorplay/src/core/drawing'
-import { footprint, labelPoint, pointInPolygon, polygonArea } from '../../floorplay/src/core/geometry'
+import { findClashes, footprint, labelPoint, pointInPolygon, polygonArea } from '../../floorplay/src/core/geometry'
+import { LAYOUT } from '../layout.js'
 import type { FurnitureItem, Vec2 } from '../../floorplay/src/core/types'
 
 const out = process.argv[2] ?? 'plan.svg'
 const p = sampleProject()
 
-// Match furniture.js where it differs from the Floorimate sample, and add the two extra pieces.
-const furniture: FurnitureItem[] = p.furniture.map((f) => {
-  if (f.name === 'Glider chair') return { ...f, x: 12.62, y: 0.62 }
-  if (f.name === 'Filing cabinet') return { ...f, x: 9.98 }
-  return f
+p.rooms = p.rooms.map((r) => (r.name === 'Bedroom 3' ? { ...r, name: "Kids' room" } : r))
+
+// layout.js uses three.js rotations (counter-clockwise from above); Floorimate turns the other way.
+type Entry = { name: string; label?: string; kind: string; x: number; z: number; rot: number; y?: number; w: number; d: number; ox?: number; oz?: number }
+const furniture: FurnitureItem[] = (LAYOUT as Entry[]).map((e, i) => {
+  const a = (e.rot * Math.PI) / 180, ox = e.ox ?? 0, oz = e.oz ?? 0
+  return {
+    id: `f${i}`, kind: e.kind as FurnitureItem['kind'], name: e.label ?? e.name, w: e.w, d: e.d, h: 1, color: '#ffffff',
+    x: e.x + ox * Math.cos(a) + oz * Math.sin(a), y: e.z - ox * Math.sin(a) + oz * Math.cos(a), rotation: -e.rot, elevation: e.y,
+  }
 })
-furniture.push(
-  { id: 'ladder', kind: 'other', name: 'Wall ladder', w: 0.72, d: 0.12, h: 2.05, x: 2.52, y: 7.3, rotation: -90, color: '#d9bd90' },
-  { id: 'board', kind: 'other', name: 'Whiteboard', w: 0.62, d: 0.55, h: 1.6, x: 7.35, y: 9.7, rotation: -100, color: '#f7f7f5' },
-)
+const clashes = findClashes({ walls: p.walls, openings: p.openings, furniture })
+const nameOf = (id: string) => furniture.find((f) => f.id === id)?.name ?? id
+console.log(clashes.length ? `clashes:\n${clashes.map((c) => c.kind === 'furniture' ? `  ${nameOf(c.a)} overlaps ${nameOf(c.b)}` : c.kind === 'wall' ? `  ${nameOf(c.item)} touches wall ${c.wall}` : `  ${nameOf(c.item)} blocks door ${c.opening}`).join('\n')}` : 'no clashes')
 
 const FLOOR: Record<string, string> = { marble: '#f1ebe1', parquet: '#ead3b4', wood: '#ead3b4', tile: '#e6e6e2', deck: '#d9c6b0', plain: '#f2f0ea' }
 const ACCENT = '#2f5d50'

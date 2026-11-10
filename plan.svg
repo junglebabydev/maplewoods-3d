@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1.4 17.027 15.215" width="1703" height="1522" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif">
+<rect x="-1" y="-1.4" width="17.027" height="15.215" fill="#ffffff"/>
+<g id="rooms">
+<polygon points="0,0 5.761,0 5.761,1.825 6.704,1.825 6.704,3.301 11.46,3.301 11.46,5.248 10.332,5.248 10.332,4.428 7.77,4.428 7.77,8.118 6.601,8.118 6.601,11.48 2.358,11.48 2.358,6.786 3.116,6.786 3.116,1.825 0,1.825" fill="#f1ebe1" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="0,1.825 3.116,1.825 3.116,5.822 0,5.822" fill="#e6e6e2" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="0,5.822 1.312,5.822 1.312,7.606 0,7.606" fill="#e6e6e2" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="0,7.606 1.005,7.606 1.005,9.389 0,9.389" fill="#e6e6e2" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="1.312,5.822 3.116,5.822 3.116,6.786 2.358,6.786 2.358,10.168 0,10.168 0,9.389 1.005,9.389 1.005,7.606 1.312,7.606" fill="#e6e6e2" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="5.761,0 7.565,0 7.565,1.825 5.761,1.825" fill="#f1ebe1" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="6.704,1.825 7.565,1.825 7.565,3.301 6.704,3.301" fill="#f1ebe1" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="7.565,0 8.692,0 8.692,1.353 9.328,1.353 9.328,3.301 7.565,3.301" fill="#e6e6e2" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="8.692,0 13.182,0 13.182,1.722 12.341,1.722 12.341,3.301 9.328,3.301 9.328,1.353 8.692,1.353" fill="#ead3b4" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="12.341,1.722 15.027,1.722 15.027,5.248 11.46,5.248 11.46,3.301 12.341,3.301" fill="#ead3b4" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="10.332,5.248 15.027,5.248 15.027,8.077 14.473,8.077 14.473,8.856 13.715,8.856 13.715,9.512 10.332,9.512" fill="#ead3b4" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="7.77,4.428 10.332,4.428 10.332,8.118 7.77,8.118" fill="#e6e6e2" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="6.601,8.118 10.332,8.118 10.332,11.48 6.601,11.48" fill="#f1ebe1" stroke="#ddd6ca" stroke-width="0.02"/>
+<polygon points="2.194,11.583 6.786,11.583 6.786,12.915 2.194,12.915" fill="#d9c6b0" stroke="#ddd6ca" stroke-width="0.02"/>
+</g>
+<g id="walls">
+<polygon points="0,-0.1 5.761,-0.1 5.761,0.1 0,0.1" fill="#2b2b2b"/>
+<polygon points="5.761,-0.1 8.692,-0.1 8.692,0.1 5.761,0.1" fill="#2b2b2b"/>
+<polygon points="8.692,-0.1 13.182,-0.1 13.182,0.1 8.692,0.1" fill="#2b2b2b"/>
+<polygon points="13.282,0 13.282,1.722 13.082,1.722 13.082,0" fill="#2b2b2b"/>
+<polygon points="13.182,1.622 15.027,1.622 15.027,1.822 13.182,1.822" fill="#2b2b2b"/>
+<polygon points="15.127,1.722 15.127,8.077 14.927,8.077 14.927,1.722" fill="#2b2b2b"/>
+<polygon points="15.027,8.177 14.473,8.177 14.473,7.977 15.027,7.977" fill="#2b2b2b"/>
+<polygon points="14.573,8.077 14.573,8.856 14.373,8.856 14.373,8.077" fill="#2b2b2b"/>
+<polygon points="14.473,8.956 13.715,8.956 13.715,8.756 14.473,8.756" fill="#2b2b2b"/>
+<polygon points="13.815,8.856 13.815,9.512 13.615,9.512 13.615,8.856" fill="#2b2b2b"/>
+<polygon points="13.715,9.612 10.332,9.612 10.332,9.412 13.715,9.412" fill="#2b2b2b"/>
+<polygon points="10.432,9.512 10.432,11.48 10.232,11.48 10.232,9.512" fill="#2b2b2b"/>
+<polygon points="10.332,11.58 6.29,11.58 6.29,11.38 10.332,11.38" fill="#2b2b2b"/>
+<polygon points="2.69,11.58 2.358,11.58 2.358,11.38 2.69,11.38" fill="#2b2b2b"/>
+<polygon points="2.258,11.48 2.258,6.786 2.458,6.786 2.458,11.48" fill="#2b2b2b"/>
+<polygon points="2.358,6.711 3.116,6.711 3.116,6.861 2.358,6.861" fill="#2b2b2b"/>
+<polygon points="-0.1,10.168 -0.1,3.193 0.1,3.193 0.1,10.168" fill="#2b2b2b"/>
+<polygon points="-0.1,2.343 -0.1,1.607 0.1,1.607 0.1,2.343" fill="#2b2b2b"/>
+<polygon points="-0.1,0.607 -0.1,0 0.1,0 0.1,0.607" fill="#2b2b2b"/>
+<polygon points="0,1.75 3.116,1.75 3.116,1.9 0,1.9" fill="#2b2b2b"/>
+<polygon points="3.041,6.786 3.041,3.542 3.191,3.542 3.191,6.786" fill="#2b2b2b"/>
+<polygon points="3.041,2.692 3.041,1.825 3.191,1.825 3.191,2.692" fill="#2b2b2b"/>
+<polygon points="0,5.762 1.466,5.762 1.466,5.882 0,5.882" fill="#2b2b2b"/>
+<polygon points="2.266,5.762 3.116,5.762 3.116,5.882 2.266,5.882" fill="#2b2b2b"/>
+<polygon points="1.372,5.822 1.372,5.944 1.252,5.944 1.252,5.822" fill="#2b2b2b"/>
+<polygon points="1.372,6.644 1.372,7.606 1.252,7.606 1.252,6.644" fill="#2b2b2b"/>
+<polygon points="0,7.546 1.312,7.546 1.312,7.666 0,7.666" fill="#2b2b2b"/>
+<polygon points="1.065,7.606 1.065,8.659 0.945,8.659 0.945,7.606" fill="#2b2b2b"/>
+<polygon points="1.065,9.259 1.065,9.389 0.945,9.389 0.945,9.259" fill="#2b2b2b"/>
+<polygon points="0,9.329 1.005,9.329 1.005,9.449 0,9.449" fill="#2b2b2b"/>
+<polygon points="0,10.093 2.358,10.093 2.358,10.243 0,10.243" fill="#2b2b2b"/>
+<polygon points="5.821,0 5.821,1.825 5.701,1.825 5.701,0" fill="#2b2b2b"/>
+<polygon points="5.761,1.765 5.883,1.765 5.883,1.885 5.761,1.885" fill="#2b2b2b"/>
+<polygon points="6.583,1.765 7.565,1.765 7.565,1.885 6.583,1.885" fill="#2b2b2b"/>
+<polygon points="6.764,1.825 6.764,2.113 6.644,2.113 6.644,1.825" fill="#2b2b2b"/>
+<polygon points="6.764,3.013 6.764,3.301 6.644,3.301 6.644,3.013" fill="#2b2b2b"/>
+<polygon points="6.704,3.241 7.764,3.241 7.764,3.361 6.704,3.361" fill="#2b2b2b"/>
+<polygon points="8.514,3.241 9.477,3.241 9.477,3.361 8.514,3.361" fill="#2b2b2b"/>
+<polygon points="10.327,3.241 12.341,3.241 12.341,3.361 10.327,3.361" fill="#2b2b2b"/>
+<polygon points="7.625,0 7.625,3.301 7.505,3.301 7.505,0" fill="#2b2b2b"/>
+<polygon points="8.752,0 8.752,1.353 8.632,1.353 8.632,0" fill="#2b2b2b"/>
+<polygon points="8.692,1.293 9.328,1.293 9.328,1.413 8.692,1.413" fill="#2b2b2b"/>
+<polygon points="9.388,1.353 9.388,3.301 9.268,3.301 9.268,1.353" fill="#2b2b2b"/>
+<polygon points="12.401,1.722 12.401,3.301 12.281,3.301 12.281,1.722" fill="#2b2b2b"/>
+<polygon points="12.341,1.662 13.182,1.662 13.182,1.782 12.341,1.782" fill="#2b2b2b"/>
+<polygon points="11.52,3.301 11.52,3.45 11.4,3.45 11.4,3.301" fill="#2b2b2b"/>
+<polygon points="11.52,4.3 11.52,5.248 11.4,5.248 11.4,4.3" fill="#2b2b2b"/>
+<polygon points="10.332,5.188 10.461,5.188 10.461,5.308 10.332,5.308" fill="#2b2b2b"/>
+<polygon points="11.311,5.188 15.027,5.188 15.027,5.308 11.311,5.308" fill="#2b2b2b"/>
+<polygon points="7.77,4.368 10.332,4.368 10.332,4.488 7.77,4.488" fill="#2b2b2b"/>
+<polygon points="7.83,4.428 7.83,8.118 7.71,8.118 7.71,4.428" fill="#2b2b2b"/>
+<polygon points="10.407,4.428 10.407,5.431 10.257,5.431 10.257,4.428" fill="#2b2b2b"/>
+<polygon points="10.407,6.131 10.407,9.512 10.257,9.512 10.257,6.131" fill="#2b2b2b"/>
+<polygon points="6.601,8.058 6.796,8.058 6.796,8.178 6.601,8.178" fill="#2b2b2b"/>
+<polygon points="7.596,8.058 10.332,8.058 10.332,8.178 7.596,8.178" fill="#2b2b2b"/>
+<polygon points="6.661,8.118 6.661,9.025 6.541,9.025 6.541,8.118" fill="#2b2b2b"/>
+<polygon points="6.661,11.025 6.661,11.48 6.541,11.48 6.541,11.025" fill="#2b2b2b"/>
+<polygon points="10.355,-0.1 12.155,-0.1 12.155,0.1 10.355,0.1" fill="#ffffff" stroke="#4c7f9b" stroke-width="0.025"/>
+<line x1="10.355" y1="0" x2="12.155" y2="0" stroke="#4c7f9b" stroke-width="0.025"/>
+<polygon points="15.127,2.567 15.127,4.567 14.927,4.567 14.927,2.567" fill="#ffffff" stroke="#4c7f9b" stroke-width="0.025"/>
+<line x1="15.027" y1="2.567" x2="15.027" y2="4.567" stroke="#4c7f9b" stroke-width="0.025"/>
+<polygon points="15.127,5.542 15.127,7.742 14.927,7.742 14.927,5.542" fill="#ffffff" stroke="#4c7f9b" stroke-width="0.025"/>
+<line x1="15.027" y1="5.542" x2="15.027" y2="7.742" stroke="#4c7f9b" stroke-width="0.025"/>
+<polygon points="13.136,9.612 11.136,9.612 11.136,9.412 13.136,9.412" fill="#ffffff" stroke="#4c7f9b" stroke-width="0.025"/>
+<line x1="13.136" y1="9.512" x2="11.136" y2="9.512" stroke="#4c7f9b" stroke-width="0.025"/>
+<polygon points="9.605,11.58 7.205,11.58 7.205,11.38 9.605,11.38" fill="#ffffff" stroke="#4c7f9b" stroke-width="0.025"/>
+<line x1="9.605" y1="11.48" x2="7.205" y2="11.48" stroke="#4c7f9b" stroke-width="0.025"/>
+<polygon points="-0.1,8.635 -0.1,8.134 0.1,8.134 0.1,8.635" fill="#ffffff" stroke="#4c7f9b" stroke-width="0.025"/>
+<line x1="0" y1="8.635" x2="0" y2="8.134" stroke="#4c7f9b" stroke-width="0.025"/>
+<polygon points="-0.1,7.003 -0.1,6.403 0.1,6.403 0.1,7.003" fill="#ffffff" stroke="#4c7f9b" stroke-width="0.025"/>
+<line x1="0" y1="7.003" x2="0" y2="6.403" stroke="#4c7f9b" stroke-width="0.025"/>
+<polygon points="-0.1,4.887 -0.1,3.887 0.1,3.887 0.1,4.887" fill="#ffffff" stroke="#4c7f9b" stroke-width="0.025"/>
+<line x1="0" y1="4.887" x2="0" y2="3.887" stroke="#4c7f9b" stroke-width="0.025"/>
+<line x1="6.29" y1="11.45" x2="4.31" y2="11.45" stroke="#3a3a3a" stroke-width="0.025"/>
+<line x1="4.67" y1="11.51" x2="2.69" y2="11.51" stroke="#3a3a3a" stroke-width="0.025"/>
+<line x1="0.1" y1="3.193" x2="0.95" y2="3.193" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 0.95 3.193 A 0.85 0.85 0 0 0 0.1 2.343" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="0.1" y1="1.607" x2="1.1" y2="1.607" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 1.1 1.607 A 1 1 0 0 0 0.1 0.607" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="3.041" y1="3.542" x2="2.191" y2="3.542" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 2.191 3.542 A 0.85 0.85 0 0 1 3.041 2.692" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="1.466" y1="5.762" x2="1.466" y2="4.962" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 1.466 4.962 A 0.8 0.8 0 0 1 2.266 5.762" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="1.252" y1="5.944" x2="0.552" y2="5.944" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 0.552 5.944 A 0.7 0.7 0 0 0 1.252 6.644" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="0.945" y1="8.659" x2="0.345" y2="8.659" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 0.345 8.659 A 0.6 0.6 0 0 0 0.945 9.259" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="5.883" y1="1.765" x2="5.883" y2="1.065" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 5.883 1.065 A 0.7 0.7 0 0 1 6.583 1.765" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="6.764" y1="2.113" x2="7.664" y2="2.113" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 7.664 2.113 A 0.9 0.9 0 0 1 6.764 3.013" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="7.764" y1="3.241" x2="7.764" y2="2.491" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 7.764 2.491 A 0.75 0.75 0 0 1 8.514 3.241" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="9.477" y1="3.241" x2="9.477" y2="2.391" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 9.477 2.391 A 0.85 0.85 0 0 1 10.327 3.241" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="11.52" y1="3.45" x2="12.37" y2="3.45" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 12.37 3.45 A 0.85 0.85 0 0 1 11.52 4.3" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="10.461" y1="5.308" x2="10.461" y2="6.158" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 10.461 6.158 A 0.85 0.85 0 0 0 11.311 5.308" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="10.257" y1="5.431" x2="9.557" y2="5.431" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 9.557 5.431 A 0.7 0.7 0 0 0 10.257 6.131" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="6.796" y1="8.178" x2="6.796" y2="8.978" stroke="#3a3a3a" stroke-width="0.025"/>
+<path d="M 6.796 8.978 A 0.8 0.8 0 0 0 7.596 8.178" fill="none" stroke="#6b665e" stroke-width="0.018" stroke-dasharray="0.07 0.05"/>
+<line x1="6.601" y1="9.025" x2="6.601" y2="11.025" stroke="#3a3a3a" stroke-width="0.025"/>
+</g>
+<g id="furniture">
+<polygon points="3.15,10.25 3.15,7.95 4.75,7.95 4.75,10.25" fill="rgba(47,93,80,0.05)" stroke="#2f5d50" stroke-width="0.018" stroke-dasharray="0.08 0.05"/>
+<polygon points="9.6,1.15 11.6,1.15 11.6,2.55 9.6,2.55" fill="rgba(47,93,80,0.05)" stroke="#2f5d50" stroke-width="0.018" stroke-dasharray="0.08 0.05"/>
+<polygon points="2.475,10.1 2.475,8.1 2.925,8.1 2.925,10.1" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="3.6,9.55 3.6,8.65 4.3,8.65 4.3,9.55" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="5.905,7.9 5.905,10.3 4.955,10.3 4.955,7.9" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="2.48,11.11 2.48,10.39 2.88,10.39 2.88,11.11" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="3.5,0.115 5.1,0.115 5.1,0.565 3.5,0.565" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="4.55,5.5 4.55,3.7 5.45,3.7 5.45,5.5" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="3.85,4.225 3.85,3.775 4.35,3.775 4.35,4.225" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="3.85,4.825 3.85,4.375 4.35,4.375 4.35,4.825" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="3.85,5.425 3.85,4.975 4.35,4.975 4.35,5.425" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="6.15,4.075 6.15,4.525 5.65,4.525 5.65,4.075" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="6.15,4.675 6.15,5.125 5.65,5.125 5.65,4.675" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="5.23,6.1 4.77,6.1 4.77,5.6 5.23,5.6" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="11.915,5.31 13.885,5.31 13.885,7.55 11.915,7.55" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="11.37,5.32 11.87,5.32 11.87,5.74 11.37,5.74" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="13.95,5.32 14.45,5.32 14.45,5.74 13.95,5.74" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="8.965,0.18 10.235,0.18 10.235,0.92 8.965,0.92" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="13.126,0.853 12.473,1.157 12.114,0.387 12.767,0.083" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="12.361,1.526 11.908,1.737 11.739,1.374 12.192,1.163" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="12.28,2.3 12.28,2.9 11.78,2.9 11.78,2.3" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="11.55,3.23 10.85,3.23 10.85,2.93 11.55,2.93" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="12.72,1.815 14.48,1.815 14.48,3.905 12.72,3.905" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="14.5,1.82 14.9,1.82 14.9,2.22 14.5,2.22" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="14.1,5.175 13.1,5.175 13.1,4.725 14.1,4.725" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="9.2,11.38 8,11.38 8,10.78 9.2,10.78" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="9.76,11.355 9.34,11.355 9.34,10.905 9.76,10.905" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="8.29,10.09 8.91,10.09 8.91,10.71 8.29,10.71" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="9.854,9.28 10.079,9.67 9.646,9.92 9.421,9.53" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="10.28,8.375 10.28,8.825 9.68,8.825 9.68,8.375" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="2.46,7.66 2.46,6.94 2.58,6.94 2.58,7.66" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="7.133,10.053 7.025,9.442 7.567,9.347 7.675,9.958" fill="rgba(255,255,255,0.82)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<polygon points="2.515,9.825 2.515,8.375 2.765,8.375 2.765,9.825" fill="rgba(18,18,20,0.75)" stroke="#2f5d50" stroke-width="0.025" stroke-linejoin="round"/>
+<text x="3.454" y="9.928" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">Rug</text>
+<text x="9.98" y="1.346" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">Play mat</text>
+<text x="2.81" y="9.1" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 2.81 9.1)">TV console</text>
+<text x="5.43" y="9.1" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 5.43 9.1)">3-seater sofa</text>
+<text x="2.68" y="10.75" font-size="0.085" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 2.68 10.75)">Play kitchen</text>
+<text x="4.3" y="0.34" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">Seb sideboard</text>
+<text x="5" y="4.6" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 5 4.6)">Dining table</text>
+<text x="5" y="5.85" font-size="0.065" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">High chair</text>
+<text x="12.9" y="6.43" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">King bed</text>
+<text x="9.6" y="0.55" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">Oval crib</text>
+<text x="12.62" y="0.62" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">Glider</text>
+<text x="11.2" y="3.08" font-size="0.082" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">Book display</text>
+<text x="13.6" y="2.86" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">MALM queen bed</text>
+<text x="13.6" y="4.95" font-size="0.129" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">TV on stand</text>
+<text x="8.6" y="11.08" font-size="0.13" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">White desk</text>
+<text x="8.6" y="10.4" font-size="0.073" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">Office chair</text>
+<text x="9.98" y="8.6" font-size="0.061" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">Filing cabinet</text>
+<text x="7.35" y="9.7" font-size="0.092" font-weight="600" fill="#2f5d50" text-anchor="middle" dominant-baseline="central">Whiteboard</text>
+</g>
+<g id="room-labels">
+<text x="5.8" y="6.268" font-size="0.24" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Living / Dining</text>
+<text x="5.8" y="6.556" font-size="0.18" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">50.96 m²</text>
+<text x="1.6" y="3.693" font-size="0.24" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Kitchen</text>
+<text x="1.6" y="3.981" font-size="0.18" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">11.46 m²</text>
+<text x="0.7" y="6.656" font-size="0.12" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Utility</text>
+<text x="0.7" y="6.8" font-size="0.09" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">2.3 m²</text>
+<text x="0.5" y="8.44" font-size="0.12" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">WC</text>
+<text x="0.5" y="8.584" font-size="0.09" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">1.8 m²</text>
+<text x="1.7" y="8.034" font-size="0.16" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Yard</text>
+<text x="1.7" y="8.226" font-size="0.12" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">6.8 m²</text>
+<text x="6.661" y="0.812" font-size="0.16" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Powder</text>
+<text x="6.661" y="1.004" font-size="0.12" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">3.3 m²</text>
+<text x="7.104" y="2.459" font-size="0.12" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Store</text>
+<text x="7.104" y="2.603" font-size="0.09" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">1.3 m²</text>
+<text x="8.365" y="1.812" font-size="0.16" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Bath 2</text>
+<text x="8.365" y="2.004" font-size="0.12" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">5.0 m²</text>
+<text x="10.892" y="1.368" font-size="0.24" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Bedroom 2</text>
+<text x="10.892" y="1.656" font-size="0.18" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">11.27 m²</text>
+<text x="12.46" y="4.39" font-size="0.24" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Bedroom 3</text>
+<text x="12.46" y="4.678" font-size="0.18" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">10.00 m²</text>
+<text x="12.532" y="8.016" font-size="0.24" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Master Bedroom</text>
+<text x="12.532" y="8.304" font-size="0.18" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">18.91 m²</text>
+<text x="9.07" y="6.096" font-size="0.24" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Master Bath</text>
+<text x="9.07" y="6.384" font-size="0.18" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">9.5 m²</text>
+<text x="8.501" y="9.286" font-size="0.24" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Study</text>
+<text x="8.501" y="9.574" font-size="0.18" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">11.35 m²</text>
+<text x="4.494" y="12.195" font-size="0.16" font-weight="700" fill="#1f1d1a" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">Balcony</text>
+<text x="4.494" y="12.387" font-size="0.12" fill="#6b665e" text-anchor="middle" dominant-baseline="central" stroke="#ffffff" stroke-width="0.07" stroke-linejoin="round" paint-order="stroke">5.8 m²</text>
+</g>
+<g id="scale" fill="#1f1d1a"><rect x="-0.1" y="13.465" width="5" height="0.05"/>
+<rect x="-0.112" y="13.365" width="0.024" height="0.15"/>
+<rect x="0.888" y="13.365" width="0.024" height="0.15"/>
+<rect x="1.888" y="13.365" width="0.024" height="0.15"/>
+<rect x="2.888" y="13.365" width="0.024" height="0.15"/>
+<rect x="3.888" y="13.365" width="0.024" height="0.15"/>
+<rect x="4.888" y="13.365" width="0.024" height="0.15"/>
+<text x="5.1" y="13.495" font-size="0.2" dominant-baseline="central">5 m</text>
+<polygon points="14.277,13.415 14.777,13.265 14.647,13.415 14.777,13.565"/><text x="14.947" y="13.415" font-size="0.22" font-weight="700" dominant-baseline="central">N</text></g>
+</svg>

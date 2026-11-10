@@ -30,6 +30,7 @@ Pieces are modelled as clean shapes from photos, without bedding clutter or pers
 ## Viewer controls
 
 - Drag to rotate, scroll or pinch to zoom, right-drag to pan.
+- **2D plan** shows the floor plan flat: a drawn plan with your furniture (follows the furniture and labels buttons), or the original developer brochure. Drag to move, scroll or pinch to zoom, double-click to fit. Link straight to it with `?view=2d`.
 - Preset views: Overview, Top, Living, Kitchen, Master.
 - **Furniture** shows or hides your furniture.
 - **Cut walls** slices everything above 1.3 m so you can see into the rooms.
@@ -52,3 +53,8 @@ Pieces are modelled as clean shapes from photos, without bedding clutter or pers
 | `index.html`, `model.glb`, `furniture.js`, `vendor/` | The web viewer and the furniture layer |
 | `renders/` | Still renders and Pascal's 2D plan |
 | `source/` | Pascal scene file and the generator script |
+
+## 2D plan files
+
+- `plan.svg` is drawn from the brochure trace with [Floorimate](https://github.com/junglebabydev/floorplay)'s plan geometry, so walls, doors and furniture line up with the 3D model. Regenerate it with `source/make-plan.mts` (instructions at the top of the file).
+- `brochure.jpg` is the developer's brochure plan as published on the listing site, including its watermarks.

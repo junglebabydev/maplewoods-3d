@@ -32,6 +32,7 @@
   .bar button { appearance: none; border: 0; background: var(--chip); color: var(--ink); padding: 8px 12px; border-radius: 10px;
     font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
   .bar button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .bar button:disabled { opacity: 0.4; cursor: default; }
   .bar .sep { width: 1px; background: var(--line); margin: 4px 2px; }
   .label { position: fixed; left: 0; top: 0; pointer-events: none; transform: translate(-50%, -50%); background: rgba(255,255,255,0.88);
     border: 1px solid var(--line); border-radius: 999px; padding: 3px 9px; font-size: 11.5px; font-weight: 600; white-space: nowrap; color: var(--ink); }
@@ -45,6 +46,20 @@
   .furn-toggle svg { width: 20px; height: 20px; flex: none; }
   .hint { position: fixed; right: 16px; top: 72px; font-size: 11.5px; color: var(--muted); background: var(--panel); border: 1px solid var(--line);
     border-radius: 10px; padding: 6px 10px; }
+  .plan2d { position: fixed; inset: 0; z-index: 1; background: #f4f3ef; overflow: hidden; touch-action: none; cursor: grab; }
+  .plan2d.dragging { cursor: grabbing; }
+  #planContent { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+  #planContent svg, #planContent img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+  #planContent.paper { background: #fff; border-radius: 6px; box-shadow: 0 10px 40px rgba(0,0,0,0.10); }
+  .plan-switch { position: fixed; z-index: 4; left: 50%; top: 16px; transform: translateX(-50%); display: flex; gap: 4px; padding: 4px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+  .plan-switch button { appearance: none; border: 0; background: transparent; color: var(--ink); padding: 7px 12px; border-radius: 9px;
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .plan-switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .card, .bar, .hint { z-index: 3; }
+  .plan-switch .short { display: none; }
+  @media (max-width: 900px) { .plan-switch { top: auto; left: 16px; transform: none; } .plan-switch .short { display: inline; } .plan-switch .long { display: none; } }
+  @media (max-width: 640px) { body.in2d .card p { display: none; } body.in2d .card details { margin-top: 4px; } }
   @media (max-width: 640px) {
     .card { right: 16px; max-width: none; padding: 12px 14px; }
     .bar { left: 16px; right: 16px; transform: none; max-width: none; }
@@ -64,7 +79,7 @@
 
 <div class="card">
   <h1>Maplewoods, Chempaka Court · Type D1</h1>
-  <p>3 bed + study · traced to scale from the developer plan · use the furniture button to compare with the empty unit</p>
+  <p>3 bed + study · traced to scale from the developer plan · use the furniture button to compare with the empty unit, and 2D plan for the floor plan</p>
   <details>
     <summary>Room areas</summary>
     <table>
@@ -83,9 +98,18 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4H2z"/><path d="M5 17v2M19 17v2"/></svg>
   <span id="furnLabel">Hide furniture</span>
 </button>
-<div class="hint">Drag to rotate · scroll or pinch to zoom · right-drag to pan</div>
+<div class="hint" id="hint">Drag to rotate · scroll or pinch to zoom · right-drag to pan</div>
+
+<div id="plan2d" class="plan2d hidden" aria-label="2D floor plan">
+  <div id="planContent"></div>
+</div>
+<div id="planSwitch" class="plan-switch hidden" role="group" aria-label="Plan">
+  <button data-plan="drawn" aria-pressed="true"><span class="long">Drawn plan</span><span class="short">Drawn</span></button>
+  <button data-plan="brochure" aria-pressed="false"><span class="long">Original brochure</span><span class="short">Brochure</span></button>
+</div>
 
 <div class="bar" role="toolbar" aria-label="Views">
+  <button id="planBtn" aria-pressed="false">2D plan</button>
   <button data-view="overview" aria-pressed="true">Overview</button>
   <button data-view="top">Top</button>
   <button data-view="living">Living</button>
@@ -181,10 +205,11 @@ function goto(name, instant = false) {
   if (instant) { camera.position.copy(toP); controls.target.copy(toT); controls.update(); return }
   tween = { fromP, fromT, toP, toT, t0: performance.now(), d: 900 }
 }
-document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => goto(b.dataset.view)))
+document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => { show2D(false); goto(b.dataset.view) }))
 document.getElementById('cut').addEventListener('click', () => { cut = !cut; applyCut() })
 document.getElementById('labelsBtn').addEventListener('click', (e) => {
-  showLabels = !showLabels; e.currentTarget.setAttribute('aria-pressed', String(showLabels)); labelsEl.classList.toggle('hidden', !showLabels)
+  showLabels = !showLabels; e.currentTarget.setAttribute('aria-pressed', String(showLabels)); labelsEl.classList.toggle('hidden', !showLabels || in2D)
+  syncPlanLayers()
 })
 controls.addEventListener('start', () => { tween = null })
 
@@ -201,6 +226,7 @@ furnBtn.addEventListener('click', () => {
   showFurniture = !showFurniture
   syncFurnBtn()
   if (furniture) furniture.visible = showFurniture
+  syncPlanLayers()
   invalidate()
 })
 // On phones the button sits just above the toolbar, whose height depends on how its buttons wrap
@@ -208,6 +234,93 @@ const bar = document.querySelector('.bar')
 const placeFurnBtn = () => { furnBtn.style.bottom = matchMedia('(max-width: 640px)').matches ? `${bar.offsetHeight + 28}px` : '' }
 placeFurnBtn()
 addEventListener('resize', placeFurnBtn)
+
+// ---------- 2D plan: a drawn plan with the furniture, or the original brochure ----------
+const plan2d = document.getElementById('plan2d'), planContent = document.getElementById('planContent'), planSwitch = document.getElementById('planSwitch')
+const planBtn = document.getElementById('planBtn'), hint = document.getElementById('hint')
+let in2D = false, planKind = 'drawn', drawnSvg = null
+const pz = { s: 1, x: 0, y: 0, w: 1, h: 1 }
+const applyPan = () => { planContent.style.transform = `translate(${pz.x}px, ${pz.y}px) scale(${pz.s})` }
+function syncPlanLayers() {
+  if (!drawnSvg) return
+  drawnSvg.querySelector('#furniture').style.display = showFurniture ? '' : 'none'
+  drawnSvg.querySelector('#room-labels').style.display = showLabels ? '' : 'none'
+}
+// On phones and tablets the switch sits just above the toolbar, beside the furniture button.
+function placePlanSwitch() { planSwitch.style.bottom = innerWidth <= 900 ? `${bar.offsetHeight + 28}px` : '' }
+// Fit the plan between the title card, the switch and the toolbar.
+function fitPlan() {
+  placePlanSwitch()
+  const narrow = innerWidth <= 900
+  const rects = [bar, planSwitch, furnBtn].map((el) => el.getBoundingClientRect())
+  const top = narrow ? document.querySelector('.card').getBoundingClientRect().bottom + 10 : 64
+  const bottom = (narrow ? Math.min(...rects.map((r) => r.top)) : rects[0].top) - 10
+  const left = narrow ? 12 : 350, right = narrow ? 12 : 16
+  const aw = innerWidth - left - right, ah = Math.max(120, bottom - top)
+  pz.s = Math.min(aw / pz.w, ah / pz.h)
+  pz.x = left + (aw - pz.w * pz.s) / 2; pz.y = top + (ah - pz.h * pz.s) / 2
+  applyPan()
+}
+async function loadPlan(kind) {
+  planKind = kind
+  planSwitch.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.plan === kind)))
+  if (kind === 'drawn') {
+    if (!drawnSvg) {
+      const text = await (await fetch('./plan.svg')).text()
+      const holder = document.createElement('div'); holder.innerHTML = text
+      drawnSvg = holder.querySelector('svg')
+    }
+    planContent.replaceChildren(drawnSvg)
+    pz.w = Number(drawnSvg.getAttribute('width')); pz.h = Number(drawnSvg.getAttribute('height'))
+    syncPlanLayers()
+  } else {
+    const img = new Image(); img.src = './brochure.jpg'; img.alt = 'Developer brochure floor plan, Maplewoods Type D1'
+    await img.decode().catch(() => {})
+    planContent.replaceChildren(img)
+    pz.w = img.naturalWidth || 1179; pz.h = img.naturalHeight || 1473
+  }
+  planContent.style.width = `${pz.w}px`; planContent.style.height = `${pz.h}px`
+  planContent.classList.add('paper')
+  fitPlan()
+}
+function show2D(on) {
+  in2D = on
+  document.body.classList.toggle('in2d', on)
+  plan2d.classList.toggle('hidden', !on); planSwitch.classList.toggle('hidden', !on)
+  planBtn.setAttribute('aria-pressed', String(on))
+  labelsEl.classList.toggle('hidden', on || !showLabels)
+  document.getElementById('cut').disabled = on
+  hint.textContent = on ? 'Drag to move · scroll or pinch to zoom · double-click to fit' : 'Drag to rotate · scroll or pinch to zoom · right-drag to pan'
+  if (on) {
+    document.querySelectorAll('[data-view]').forEach((b) => b.setAttribute('aria-pressed', 'false'))
+    loadPlan(planKind)
+  }
+  invalidate()
+}
+planBtn.addEventListener('click', () => { if (in2D) { show2D(false); goto('overview') } else show2D(true) })
+planSwitch.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => loadPlan(b.dataset.plan)))
+addEventListener('resize', () => { if (in2D) fitPlan() })
+// Pan with one finger or the mouse, pinch or scroll to zoom.
+const zoomAt = (cx, cy, k) => {
+  const s = Math.min(Math.max(pz.s * k, 0.05), 12); k = s / pz.s
+  pz.x = cx - (cx - pz.x) * k; pz.y = cy - (cy - pz.y) * k; pz.s = s; applyPan()
+}
+plan2d.addEventListener('wheel', (e) => { e.preventDefault(); zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0015)) }, { passive: false })
+plan2d.addEventListener('dblclick', fitPlan)
+const ptrs = new Map()
+let pinch = null
+plan2d.addEventListener('pointerdown', (e) => { plan2d.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); plan2d.classList.add('dragging') })
+plan2d.addEventListener('pointermove', (e) => {
+  const prev = ptrs.get(e.pointerId); if (!prev) return
+  ptrs.set(e.pointerId, [e.clientX, e.clientY])
+  if (ptrs.size === 1) { pz.x += e.clientX - prev[0]; pz.y += e.clientY - prev[1]; applyPan(); return }
+  const [a, b] = [...ptrs.values()]
+  const d = Math.hypot(a[0] - b[0], a[1] - b[1]), mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2
+  if (pinch) { pz.x += mx - pinch.mx; pz.y += my - pinch.my; zoomAt(mx, my, d / pinch.d) }
+  pinch = { d, mx, my }
+})
+const endPtr = (e) => { ptrs.delete(e.pointerId); pinch = null; if (!ptrs.size) plan2d.classList.remove('dragging') }
+plan2d.addEventListener('pointerup', endPtr); plan2d.addEventListener('pointercancel', endPtr)
 
 new GLTFLoader().load('./model.glb', (gltf) => {
   const model = gltf.scene
@@ -227,6 +340,7 @@ new GLTFLoader().load('./model.glb', (gltf) => {
   scene.add(furniture)
   document.getElementById('loading').remove()
   goto('overview', true)
+  if (new URLSearchParams(location.search).get('view') === '2d') show2D(true)
   invalidate()
 }, (e) => { if (e.total) document.getElementById('pct').textContent = Math.round((e.loaded / e.total) * 100) + '%' },
 (err) => { document.getElementById('loading').textContent = 'Could not load the model.'; console.error(err) })
